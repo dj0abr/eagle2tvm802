@@ -1,7 +1,7 @@
 # eagle2tvm802
 an Eagle Layout to TVM802 Pick and Place converter
 
-this program loads eagle mnt and mnb files,
+this program loads eagle mnt and mnb files (which are exported with the standard ULP: mountsmd)
 assignes a stack/tray list to the components
 and generates a TVM802 compatible pick&place file.
 
