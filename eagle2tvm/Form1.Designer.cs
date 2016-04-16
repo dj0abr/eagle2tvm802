@@ -32,6 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_loadfiles = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label_usage = new System.Windows.Forms.Label();
+            this.label_usagetop = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button_makeTVMfiles = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_loadTVMfiles = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -68,14 +74,9 @@
             this.printDocument_bdruck = new System.Drawing.Printing.PrintDocument();
             this.button_en = new System.Windows.Forms.Button();
             this.button_de = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button_makeTVMfiles = new System.Windows.Forms.Button();
-            this.label_usagetop = new System.Windows.Forms.Label();
-            this.label_usage = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage_loadfiles.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -85,7 +86,6 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stack)).BeginInit();
             this.tabPage5.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -116,8 +116,78 @@
             this.tabPage_loadfiles.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage_loadfiles.Size = new System.Drawing.Size(1213, 679);
             this.tabPage_loadfiles.TabIndex = 0;
-            this.tabPage_loadfiles.Text = "Laden/Soeichern PnP Dateien";
+            this.tabPage_loadfiles.Text = "Laden/Speichern PnP Dateien";
             this.tabPage_loadfiles.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(464, 557);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(609, 60);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Die Dateien bekommen zusätzlich zum eingegebenem Namen einen Zusatz von:\r\nTOP-Lay" +
+    "er:  _tvm802_top.csv\r\nBOTTOM-Layer: _tvm802_bottom.csv\r\n";
+            // 
+            // label_usage
+            // 
+            this.label_usage.AutoSize = true;
+            this.label_usage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_usage.Location = new System.Drawing.Point(464, 99);
+            this.label_usage.Name = "label_usage";
+            this.label_usage.Size = new System.Drawing.Size(627, 360);
+            this.label_usage.TabIndex = 6;
+            this.label_usage.Text = resources.GetString("label_usage.Text");
+            // 
+            // label_usagetop
+            // 
+            this.label_usagetop.AutoSize = true;
+            this.label_usagetop.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_usagetop.Location = new System.Drawing.Point(459, 36);
+            this.label_usagetop.Name = "label_usagetop";
+            this.label_usagetop.Size = new System.Drawing.Size(136, 29);
+            this.label_usagetop.TabIndex = 5;
+            this.label_usagetop.Text = "Bedienung:";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button3);
+            this.groupBox3.Controls.Add(this.button_makeTVMfiles);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(21, 430);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(405, 227);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Speichere TVM802 Dateien";
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(24, 107);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(343, 85);
+            this.button3.TabIndex = 6;
+            this.button3.Text = "Erstelle TVM802 Dateien\r\nNUR Bauteile mit \r\nzugewiesenem Stack/Tray";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button_makeTVMfiles
+            // 
+            this.button_makeTVMfiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button_makeTVMfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_makeTVMfiles.Location = new System.Drawing.Point(24, 35);
+            this.button_makeTVMfiles.Margin = new System.Windows.Forms.Padding(4);
+            this.button_makeTVMfiles.Name = "button_makeTVMfiles";
+            this.button_makeTVMfiles.Size = new System.Drawing.Size(343, 47);
+            this.button_makeTVMfiles.TabIndex = 5;
+            this.button_makeTVMfiles.Text = "Erstelle TVM802 Dateien";
+            this.button_makeTVMfiles.UseVisualStyleBackColor = false;
+            this.button_makeTVMfiles.Click += new System.EventHandler(this.button_makeTVMfiles_Click);
             // 
             // groupBox2
             // 
@@ -134,6 +204,7 @@
             // 
             // button_loadTVMfiles
             // 
+            this.button_loadTVMfiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button_loadTVMfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_loadTVMfiles.Location = new System.Drawing.Point(24, 57);
             this.button_loadTVMfiles.Margin = new System.Windows.Forms.Padding(4);
@@ -141,7 +212,7 @@
             this.button_loadTVMfiles.Size = new System.Drawing.Size(343, 42);
             this.button_loadTVMfiles.TabIndex = 1;
             this.button_loadTVMfiles.Text = "Lade TVM802 Dateien";
-            this.button_loadTVMfiles.UseVisualStyleBackColor = true;
+            this.button_loadTVMfiles.UseVisualStyleBackColor = false;
             this.button_loadTVMfiles.Click += new System.EventHandler(this.button_loadTVMfiles_Click);
             // 
             // groupBox1
@@ -487,74 +558,6 @@
             this.button_de.UseVisualStyleBackColor = true;
             this.button_de.Click += new System.EventHandler(this.button_de_Click);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Controls.Add(this.button_makeTVMfiles);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(21, 430);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(405, 227);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Speichere TVM802 Dateien";
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(24, 107);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(343, 85);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Erstelle TVM802 Dateien\r\nNUR Bauteile mit \r\nzugewiesenem Stack/Tray";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button_makeTVMfiles
-            // 
-            this.button_makeTVMfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_makeTVMfiles.Location = new System.Drawing.Point(24, 35);
-            this.button_makeTVMfiles.Margin = new System.Windows.Forms.Padding(4);
-            this.button_makeTVMfiles.Name = "button_makeTVMfiles";
-            this.button_makeTVMfiles.Size = new System.Drawing.Size(343, 47);
-            this.button_makeTVMfiles.TabIndex = 5;
-            this.button_makeTVMfiles.Text = "Erstelle TVM802 Dateien";
-            this.button_makeTVMfiles.UseVisualStyleBackColor = true;
-            this.button_makeTVMfiles.Click += new System.EventHandler(this.button_makeTVMfiles_Click);
-            // 
-            // label_usagetop
-            // 
-            this.label_usagetop.AutoSize = true;
-            this.label_usagetop.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_usagetop.Location = new System.Drawing.Point(459, 36);
-            this.label_usagetop.Name = "label_usagetop";
-            this.label_usagetop.Size = new System.Drawing.Size(136, 29);
-            this.label_usagetop.TabIndex = 5;
-            this.label_usagetop.Text = "Bedienung:";
-            // 
-            // label_usage
-            // 
-            this.label_usage.AutoSize = true;
-            this.label_usage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_usage.Location = new System.Drawing.Point(464, 99);
-            this.label_usage.Name = "label_usage";
-            this.label_usage.Size = new System.Drawing.Size(627, 360);
-            this.label_usage.TabIndex = 6;
-            this.label_usage.Text = resources.GetString("label_usage.Text");
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(464, 557);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(609, 60);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Die Dateien bekommen zusätzlich zum eingegebenem Namen einen Zusatz von:\r\nTOP-Lay" +
-    "er:  _tvm802_top.csv\r\nBOTTOM-Layer: _tvm802_bottom.csv\r\n";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -572,6 +575,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage_loadfiles.ResumeLayout(false);
             this.tabPage_loadfiles.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -586,7 +590,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stack)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -202,6 +202,9 @@ namespace eagle2tvm
                         if (doauto)
                         {
                             dev.stackname = si.stackname.ToUpper();
+                            dev.nozzle = si.nozzle;
+                            dev.height = si.height;
+                            dev.vision = si.vision;
                             break;
                         }
                     }
@@ -225,6 +228,9 @@ namespace eagle2tvm
                         if (doauto)
                         {
                             dev.stackname = si.stackname.ToUpper();
+                            dev.nozzle = si.nozzle;
+                            dev.height = si.height;
+                            dev.vision = si.vision;
                             break;
                         }
                     }
