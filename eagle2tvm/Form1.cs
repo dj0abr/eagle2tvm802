@@ -518,7 +518,7 @@ are kept as they are.
             }
             else
             {
-                tabPage_loadfiles.Text = "Laden/Soeichern PnP Dateien";
+                tabPage_loadfiles.Text = "Laden/Speichern PnP Dateien";
                 groupBox2.Text = "Lade zuvor erstellte TVM802 Dateien";
                 button_loadTVMfiles.Text = "Lade TVM802 Dateien";
                 groupBox1.Text = "Lade EAGLE Originaldateien";
