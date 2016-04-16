@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using System.Data;
 
 namespace eagle2tvm
 {
@@ -35,7 +36,6 @@ namespace eagle2tvm
             tvm802 = new tvm();
             info.Load();
             stk.LoadStack(info.myFilePath(info.stackfile));
-            //tvm802.makeFilenames();
 
             tdataGridView_devices.DataSource = egl.tdevlist;
             bdataGridView_devices.DataSource = egl.bdevlist;
@@ -54,6 +54,9 @@ namespace eagle2tvm
             bdataGridView_devices.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             // die Combobox wird nicht gebunden, weil sonst keine freie Definition der Auswahlmöglichkeiten besteht
+            setStackComboboxes();
+            setTopComboboxes();
+            setBottomComboboxes();
 
             setGUI();   // default Sprache
         }
@@ -97,7 +100,7 @@ namespace eagle2tvm
             }
         }
 
-        int splashtime = 3;
+        int splashtime = 2;
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (splashtime > 0)
@@ -452,6 +455,117 @@ namespace eagle2tvm
             setGUI();
         }
 
+        DataGridViewComboBoxColumn makeFilledStringDataSource(String [] sa, int anz, String name, String type)
+        {
+            DataTable dt = new DataTable();
+            DataColumn dcol;
+            DataRow row;
+
+            dcol = new DataColumn();
+            dcol.DataType = Type.GetType(type);
+            dcol.ColumnName = name;
+            dcol.ReadOnly = true;
+            dcol.Unique = true;
+            dt.Columns.Add(dcol);
+
+            for (int i = 0; i < anz; i++)
+            {
+                row = dt.NewRow();
+                row[0] = sa[i];
+                dt.Rows.Add(row);
+            }
+
+            BindingSource bs = new BindingSource();
+            bs.DataSource = dt;
+
+            // und baue die Combobox
+            DataGridViewComboBoxColumn cb = new DataGridViewComboBoxColumn();
+            cb.DataPropertyName = name;
+            cb.HeaderText = name;
+            cb.Width = 80;
+            cb.DataSource = bs;
+            cb.ValueMember = name;
+            cb.DisplayMember = name;
+            return cb;
+        }
+
+        // Comboboxen für die Stackliste erzeugen
+        void setStackComboboxes()
+        {
+            // Stackname Combobox
+            String[] sa = new String[58];
+            int idx = 0;
+            for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
+            for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
+            for (int i = 1; i <= 10; i++) sa[idx++] = "I" + i.ToString();
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 58, "stackname", "System.String");
+            dataGridView_stack.Columns.Insert(0,cb3);
+
+            // Nozzle Combobox
+            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
+            dataGridView_stack.Columns.Insert(5,cb2);
+
+            // Vision Combobox
+            DataGridViewComboBoxColumn cb1 = makeFilledStringDataSource(new String[] { "None", "Quick", "Accurate" }, 3, "vision", "System.String");
+            dataGridView_stack.Columns.Insert(8,cb1);
+
+            dataGridView_stack.Columns[1].Visible = false;  // und blende die originalen Spalten aus
+            dataGridView_stack.Columns[6].Visible = false;
+            dataGridView_stack.Columns[9].Visible = false;
+        }
+
+        // Comboboxen für die TOPliste erzeugen
+        void setTopComboboxes()
+        {
+            // Stackname Combobox
+            String[] sa = new String[59];
+            int idx = 0;
+            for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
+            for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
+            for (int i = 1; i <= 10; i++) sa[idx++] = "I" + i.ToString();
+            sa[58] = "L???";
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 59, "stackname", "System.String");
+            tdataGridView_devices.Columns.Insert(0, cb3);
+
+            // Nozzle Combobox
+            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
+            tdataGridView_devices.Columns.Insert(2, cb2);
+
+            // Vision Combobox
+            DataGridViewComboBoxColumn cb1 = makeFilledStringDataSource(new String[] { "None", "Quick", "Accurate" }, 3, "vision", "System.String");
+            tdataGridView_devices.Columns.Insert(8, cb1);
+
+            tdataGridView_devices.Columns[4].Visible = false;  // und blende die originalen Spalten aus
+            tdataGridView_devices.Columns[6].Visible = false;
+            tdataGridView_devices.Columns[13].Visible = false;
+        }
+
+        // Comboboxen für die BOTTOMliste erzeugen
+        void setBottomComboboxes()
+        {
+            // Stackname Combobox
+            String[] sa = new String[59];
+            int idx = 0;
+            for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
+            for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
+            for (int i = 1; i <= 10; i++) sa[idx++] = "I" + i.ToString();
+            sa[58] = "L???";
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 59, "stackname", "System.String");
+            bdataGridView_devices.Columns.Insert(4, cb3);
+
+            // Nozzle Combobox
+            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
+            bdataGridView_devices.Columns.Insert(3, cb2);
+
+            // Vision Combobox
+            DataGridViewComboBoxColumn cb1 = makeFilledStringDataSource(new String[] { "None", "Quick", "Accurate" }, 3, "vision", "System.String");
+            bdataGridView_devices.Columns.Insert(8, cb1);
+
+            bdataGridView_devices.Columns[4].Visible = false;  // und blende die originalen Spalten aus
+            bdataGridView_devices.Columns[6].Visible = false;
+            bdataGridView_devices.Columns[13].Visible = false;
+        }
+
         void setGUI()
         {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
@@ -546,6 +660,11 @@ are kept as they are.
                 label4.Text = resources.GetString("label4.Text");
             }
             Invalidate();
+        }
+
+        private void tdataGridView_devices_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            Console.WriteLine(e.ToString());
         }
     }
 }

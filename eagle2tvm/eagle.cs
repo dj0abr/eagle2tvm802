@@ -130,6 +130,8 @@ namespace eagle2tvm
     class device
     {
         public String location { get; set; }
+        public String name { get; set; }
+        public String footprint { get; set; }
         public int nozzle { get; set; }
         public String stackname { get; set; }
         public double x { get; set; }
@@ -139,8 +141,6 @@ namespace eagle2tvm
         public int speed { get; set; }
         public String vision { get; set; }
         public bool pressure { get; set; }
-        public String name { get; set; }
-        public String footprint { get; set; }
 
         public device(String loc, String xi, String yi, String r, String n, String f,
                         String noz = "1", String sn = "L???", String h = "0.5", String spd = "50", String vis = "None", String prs = "True")

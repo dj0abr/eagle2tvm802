@@ -304,12 +304,13 @@
             // 
             this.tdataGridView_devices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.tdataGridView_devices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tdataGridView_devices.Location = new System.Drawing.Point(9, 9);
+            this.tdataGridView_devices.Location = new System.Drawing.Point(19, 8);
             this.tdataGridView_devices.Margin = new System.Windows.Forms.Padding(4);
             this.tdataGridView_devices.MultiSelect = false;
             this.tdataGridView_devices.Name = "tdataGridView_devices";
             this.tdataGridView_devices.Size = new System.Drawing.Size(1193, 624);
             this.tdataGridView_devices.TabIndex = 0;
+            this.tdataGridView_devices.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.tdataGridView_devices_DataError);
             this.tdataGridView_devices.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bdataGridView_devices_KeyDown);
             // 
             // tabPage3
