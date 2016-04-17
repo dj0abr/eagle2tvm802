@@ -486,6 +486,7 @@ namespace eagle2tvm
             cb.DataSource = bs;
             cb.ValueMember = name;
             cb.DisplayMember = name;
+            cb.SortMode = DataGridViewColumnSortMode.Automatic;
             return cb;
         }
 
@@ -579,7 +580,7 @@ namespace eagle2tvm
                 label3.Text = "set assignments to Nozzle, Stack, Fiducials etc.\r\nto default values. Load a TVM802 file\r\nfirst to get actual fiducial coordinates.";
                 button_loadeaglefiles.Text = "Load Eagle Files";
                 tabPage2.Text = "TOP devices";
-                label7.Text = label8.Text = label9.Text = "Click on the header to sort a coloumn !";
+                label7.Text = label8.Text = label9.Text = "Click on the header to sort a column !";
                 button_printstacklist.Text = button_bdruck.Text = button_tdruck.Text = "Print";
                 tabPage3.Text = "BOTTOM devices";
                 button_loadstacklist.Text = "Load";
@@ -621,7 +622,7 @@ bottom side.
 
 2. in EAGLE: run the ULP mountsmd, this generates the mnt and mnb files.
 
-3. click ""laod Eagle files"" and choose an mnt or mnb file
+3. click ""load Eagle files"" and choose an mnt or mnb file
    (this always load both, the mnt and mnb, files)
 
 4. go to the TOP and bottom devices window and enter all data, or
@@ -665,6 +666,11 @@ are kept as they are.
         private void tdataGridView_devices_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             Console.WriteLine(e.ToString());
+        }
+
+        private void dataGridView_stack_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
     }
 }

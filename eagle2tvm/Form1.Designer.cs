@@ -437,6 +437,7 @@
             this.dataGridView_stack.Name = "dataGridView_stack";
             this.dataGridView_stack.Size = new System.Drawing.Size(1193, 627);
             this.dataGridView_stack.TabIndex = 0;
+            this.dataGridView_stack.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_stack_DataError);
             // 
             // tabPage5
             // 
