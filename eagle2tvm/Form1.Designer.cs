@@ -59,6 +59,8 @@
             this.button_loadstacklist = new System.Windows.Forms.Button();
             this.button_savestack = new System.Windows.Forms.Button();
             this.dataGridView_stack = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.dataGridView_fiducials = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -74,6 +76,10 @@
             this.printDocument_bdruck = new System.Drawing.Printing.PrintDocument();
             this.button_en = new System.Windows.Forms.Button();
             this.button_de = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dataGridView_bfiducials = new System.Windows.Forms.DataGridView();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage_loadfiles.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -85,7 +91,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.bdataGridView_devices)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stack)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_fiducials)).BeginInit();
             this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_bfiducials)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -94,6 +103,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(17, 16);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
@@ -439,6 +449,38 @@
             this.dataGridView_stack.TabIndex = 0;
             this.dataGridView_stack.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_stack_DataError);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label10);
+            this.tabPage4.Controls.Add(this.label5);
+            this.tabPage4.Controls.Add(this.dataGridView_bfiducials);
+            this.tabPage4.Controls.Add(this.label1);
+            this.tabPage4.Controls.Add(this.dataGridView_fiducials);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1213, 679);
+            this.tabPage4.TabIndex = 6;
+            this.tabPage4.Text = "Fiducials";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView_fiducials
+            // 
+            this.dataGridView_fiducials.AllowUserToAddRows = false;
+            this.dataGridView_fiducials.AllowUserToDeleteRows = false;
+            this.dataGridView_fiducials.AllowUserToResizeColumns = false;
+            this.dataGridView_fiducials.AllowUserToResizeRows = false;
+            this.dataGridView_fiducials.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView_fiducials.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_fiducials.Location = new System.Drawing.Point(273, 22);
+            this.dataGridView_fiducials.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView_fiducials.MultiSelect = false;
+            this.dataGridView_fiducials.Name = "dataGridView_fiducials";
+            this.dataGridView_fiducials.RowHeadersVisible = false;
+            this.dataGridView_fiducials.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridView_fiducials.Size = new System.Drawing.Size(895, 52);
+            this.dataGridView_fiducials.TabIndex = 1;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.label6);
@@ -560,6 +602,54 @@
             this.button_de.UseVisualStyleBackColor = true;
             this.button_de.Click += new System.EventHandler(this.button_de_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(142, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "FIDUCIAL TOP:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(17, 118);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(183, 20);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "FIDUCIAL BOTTOM:";
+            // 
+            // dataGridView_bfiducials
+            // 
+            this.dataGridView_bfiducials.AllowUserToAddRows = false;
+            this.dataGridView_bfiducials.AllowUserToDeleteRows = false;
+            this.dataGridView_bfiducials.AllowUserToResizeColumns = false;
+            this.dataGridView_bfiducials.AllowUserToResizeRows = false;
+            this.dataGridView_bfiducials.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView_bfiducials.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_bfiducials.Location = new System.Drawing.Point(273, 101);
+            this.dataGridView_bfiducials.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView_bfiducials.MultiSelect = false;
+            this.dataGridView_bfiducials.Name = "dataGridView_bfiducials";
+            this.dataGridView_bfiducials.RowHeadersVisible = false;
+            this.dataGridView_bfiducials.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridView_bfiducials.Size = new System.Drawing.Size(895, 52);
+            this.dataGridView_bfiducials.TabIndex = 3;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(269, 217);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(516, 40);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Definiere im Board zwei SMD Pads mit den Namen: FID1 und FID2.\r\nDiese werden auto" +
+    "matisch als Fiducials importiert.";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -572,7 +662,7 @@
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Eagle mnt/mnb to TVM802 Converter";
+            this.Text = "Eagle mnt/mnb to TVM802 Converter V1.10";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage_loadfiles.ResumeLayout(false);
@@ -590,8 +680,12 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stack)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_fiducials)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_bfiducials)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -643,6 +737,12 @@
         private System.Windows.Forms.Label label_usagetop;
         private System.Windows.Forms.Label label_usage;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.DataGridView dataGridView_fiducials;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dataGridView_bfiducials;
+        private System.Windows.Forms.Label label10;
     }
 }
 

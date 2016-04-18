@@ -33,29 +33,42 @@ namespace eagle2tvm
                 using (sr = new StreamReader(tfilename))
                 {
                     tdevlist.Clear();
+                    info.tfiducialslist.Clear();
+                    fiducialitem tfi = new fiducialitem();
                     while (true)
                     {
                         String s = sr.ReadLine();
                         if (s == null) break;
 
                         String[] sa = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        device dev;
                         if (sa.Length < 6)
+                            dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], "???");
+                        else
+                            dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], sa[5]);
+
+                        if(dev.location == "FID1")
                         {
-                            device dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], "???");
-                            tdevlist.Add(dev);
+                            tfi.mark1x = dev.x;
+                            tfi.mark1y = dev.y;
+                        }
+                        else if (dev.location == "FID2")
+                        {
+                            tfi.mark2x = dev.x;
+                            tfi.mark2y = dev.y;
                         }
                         else
-                        {
-                            device dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], sa[5]);
                             tdevlist.Add(dev);
-                        }
                     }
+                    info.tfiducialslist.Add(tfi);
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+            
 
             // Lade Bottom Layer
             sr = null;
@@ -64,23 +77,34 @@ namespace eagle2tvm
                 using (sr = new StreamReader(bfilename))
                 {
                     bdevlist.Clear();
+                    info.bfiducialslist.Clear();
+                    fiducialitem bfi = new fiducialitem();
                     while (true)
                     {
                         String s = sr.ReadLine();
                         if (s == null) break;
 
                         String[] sa = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        device dev;
                         if (sa.Length < 6)
+                            dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], "???");
+                        else
+                            dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], sa[5]);
+
+                        if (dev.location == "FID1")
                         {
-                            device dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], "???");
-                            bdevlist.Add(dev);
+                            bfi.mark1x = dev.x;
+                            bfi.mark1y = dev.y;
+                        }
+                        else if (dev.location == "FID2")
+                        {
+                            bfi.mark2x = dev.x;
+                            bfi.mark2y = dev.y;
                         }
                         else
-                        {
-                            device dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], sa[5]);
                             bdevlist.Add(dev);
-                        }
                     }
+                    info.bfiducialslist.Add(bfi);
                 }
             }
             catch (Exception e)
@@ -107,6 +131,7 @@ namespace eagle2tvm
                 // und spiegle auch die Rotation
                 //dev.rot = (360-dev.rot) % 360; nicht erforderlich, da diese von Eagle bereits gespiegelt ist
             }
+
             return 0;
         }
         

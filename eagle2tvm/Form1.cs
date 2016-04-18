@@ -40,6 +40,8 @@ namespace eagle2tvm
             tdataGridView_devices.DataSource = egl.tdevlist;
             bdataGridView_devices.DataSource = egl.bdevlist;
             dataGridView_stack.DataSource = info.stacklist;
+            dataGridView_fiducials.DataSource = info.tfiducialslist;
+            dataGridView_bfiducials.DataSource = info.bfiducialslist;
 
             tdataGridView_devices.Columns[3].DefaultCellStyle.Format = "N2";
             tdataGridView_devices.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -57,6 +59,11 @@ namespace eagle2tvm
             setStackComboboxes();
             setTopComboboxes();
             setBottomComboboxes();
+
+            // mit 0 vorbelegen
+            fiducialitem fi = new fiducialitem();
+            info.tfiducialslist.Add(fi);
+            info.bfiducialslist.Add(fi);
 
             setGUI();   // default Sprache
         }
@@ -526,11 +533,11 @@ namespace eagle2tvm
             for (int i = 1; i <= 10; i++) sa[idx++] = "I" + i.ToString();
             sa[58] = "L???";
             DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 59, "stackname", "System.String");
-            tdataGridView_devices.Columns.Insert(0, cb3);
+            tdataGridView_devices.Columns.Insert(4, cb3);
 
             // Nozzle Combobox
             DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
-            tdataGridView_devices.Columns.Insert(2, cb2);
+            tdataGridView_devices.Columns.Insert(3, cb2);
 
             // Vision Combobox
             DataGridViewComboBoxColumn cb1 = makeFilledStringDataSource(new String[] { "None", "Quick", "Accurate" }, 3, "vision", "System.String");
@@ -590,6 +597,7 @@ namespace eagle2tvm
                 label2.Text = "The filename is automatically extended with:\r\nTOP-Layer:  _tvm802_top.csv\r\nBOTTOM-Layer: _tvm802_bottom.csv\r\n";
                 groupBox3.Text = "save TVM802 files";
                 label_usagetop.Text = "Usage:";
+                label10.Text = "Define in the board two SMD pads with the Device-Names FID1 and FID2\r\nthese pads are imported as fiducials";
                 label4.Text =
 @"
 Stack/Tray lists are stored separately and can be used for all boards.
@@ -643,8 +651,7 @@ are kept as they are.
                 groupBox2.Text = "Lade zuvor erstellte TVM802 Dateien";
                 button_loadTVMfiles.Text = "Lade TVM802 Dateien";
                 groupBox1.Text = "Lade EAGLE Originaldateien";
-                label3.Text = "Zuordnungen zu Nozzle, Stack, Fiducials usw. \r\nwerden auf Defaultwerte gesetzt. E" +
-    "vt. zuvor \r\neine TVM802 Datei laden um die Fiducial Werte \r\nzu übernehmen.";
+                label3.Text = "Zuordnungen zu Nozzle, Stack, Fiducials usw. \r\nwerden auf Defaultwerte gesetzt. Evt. zuvor \r\neine TVM802 Datei laden um die Fiducial Werte \r\nzu übernehmen.";
                 button_loadeaglefiles.Text = "Lade Eagle Dateien";
                 tabPage2.Text = "TOP Bauteile";
                 label7.Text = label8.Text = label9.Text = "zum Sortieren den Spaltenkopf anklicken !";
@@ -659,6 +666,8 @@ are kept as they are.
                 label_usagetop.Text = "Bedienung:";
                 label_usage.Text = resources.GetString("label_usage.Text");
                 label4.Text = resources.GetString("label4.Text");
+                this.label10.Text = "Definiere im Board zwei SMD Pads mit den Namen: FID1 und FID2.\r\nDiese werden auto" +
+    "matisch als Fiducials importiert.";
             }
             Invalidate();
         }

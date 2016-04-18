@@ -150,19 +150,76 @@ namespace eagle2tvm
 
         void WriteTail(StreamWriter sw, String side)
         {
-            String s = ttailtext;
-            if (side == "bottom")
-                s = btailtext;
+            int cnt = 0;
+            String s1 = "";
+            String s2 = "";
+            String s3 = "";
+            String s4 = "";
+            String s5 = "";
+            String s6 = "";
+            String s7 = "";
+            String s8 = "";
+            if (side == "top")
+            {
+                foreach(fiducialitem fi in info.tfiducialslist)
+                {
+                    s1 += fi.mark1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s2 += fi.mark1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s3 += fi.real1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s4 += fi.real1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s5 += fi.mark2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s6 += fi.mark2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s7 += fi.real2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s8 += fi.real2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    cnt++;
+                }
+            }
+            else
+            {
+                foreach (fiducialitem fi in info.bfiducialslist)
+                {
+                    s1 += fi.mark1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s2 += fi.mark1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s3 += fi.real1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s4 += fi.real1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s5 += fi.mark2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s6 += fi.mark2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s7 += fi.real2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s8 += fi.real2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    cnt++;
+                }
+            }
 
-            if (s == null || s.Length < 1)
-                s = MakeDefaultTail();
+            for (int i = cnt; i < 50; i++)
+            {
+                s1 += "0.00\r\n";
+                s2 += "0.00\r\n";
+                s3 += "0.00\r\n";
+                s4 += "0.00\r\n";
+                s5 += "0.00\r\n";
+                s6 += "0.00\r\n";
+                s7 += "0.00\r\n";
+                s8 += "0.00\r\n";
+            }
+            s1 += "\r\n";
+            s2 += "\r\n";
+            s3 += "\r\n";
+            s4 += "\r\n";
+            s5 += "\r\n";
+            s6 += "\r\n";
+            s7 += "\r\n";
+            s8 += "\r\n";
 
-            sw.Write(s);
-        }
-
-        String MakeDefaultTail()
-        {
-            return info.sDefaultTail;
+            sw.Write("\r\n\r\n\r\nPuzzle\r\n");
+            sw.Write(s1);
+            sw.Write(s2);
+            sw.Write(s3);
+            sw.Write(s4);
+            sw.Write(s5);
+            sw.Write(s6);
+            sw.Write(s7);
+            sw.Write(s8);
+            sw.Write(info.sDefaultTail);
         }
 
         public void LoadCSV(eagle egl)
@@ -276,6 +333,73 @@ namespace eagle2tvm
                 ttailtext = s;
             else
                 btailtext = s;
+
+            // zerteile den Tail in die einzelnen Zeilen
+            String[] sa = s.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            int idx = 0;
+            foreach(String sx in sa)
+            {
+                if(sx.Contains("Puzzle"))
+                {
+                    // Start gefunden
+                    // Lese die Werte ein
+                    try
+                    {
+                        double[,] tailinfo = new double[8, 50];
+                        idx++;
+                        for(int x=0; x<8; x++)
+                        {
+                            for(int i=0; i<50; i++)
+                            {
+                                tailinfo[x, i] = info.MyToDouble(sa[idx++]);
+                            }
+                        }
+
+                        info.tfiducialslist.Clear();
+                        info.bfiducialslist.Clear();
+                        for (int f = 0; f < 50; f++)
+                        {
+                            fiducialitem fi = new fiducialitem();
+                            fi.mark1x = tailinfo[0, f];
+                            fi.mark1y = tailinfo[1, f];
+                            fi.real1x = tailinfo[2, f];
+                            fi.real1y = tailinfo[3, f];
+                            fi.mark2x = tailinfo[4, f];
+                            fi.mark2y = tailinfo[5, f];
+                            fi.real2x = tailinfo[6, f];
+                            fi.real2y = tailinfo[7, f];
+                            if (side == "top")
+                                info.tfiducialslist.Add(fi);
+                            else
+                                info.bfiducialslist.Add(fi);
+                        }
+
+                        return;
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                }
+                idx++;
+            }
+        }
+    }
+
+    public class fiducialitem
+    {
+        public double mark1x { get; set; }
+        public double mark1y { get; set; }
+        public double real1x { get; set; }
+        public double real1y { get; set; }
+        public double mark2x { get; set; }
+        public double mark2y { get; set; }
+        public double real2x { get; set; }
+        public double real2y { get; set; }
+
+        public fiducialitem()
+        {
+            mark1x = mark1y = real1x = real1y = mark2x = mark2y = real2x = real2y = 0.00;
         }
     }
 }
