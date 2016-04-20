@@ -14,3 +14,7 @@ folder, name: eagle2tvm.exe
 
 The program is translated into English and German,
 the user instructions are shown in the windows.
+
+changes V1.10:
+automatic Fiducial coordinate import from eagle board.
+See Fiducial Window for details.
