@@ -163,14 +163,14 @@ namespace eagle2tvm
             {
                 foreach(fiducialitem fi in info.tfiducialslist)
                 {
-                    s1 += fi.mark1x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s2 += fi.mark1y.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s3 += fi.real1x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s4 += fi.real1y.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s5 += fi.mark2x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s6 += fi.mark2y.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s7 += fi.real2x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s8 += fi.real2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s1 += fi.real1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s2 += fi.real1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s3 += fi.mark1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s4 += fi.mark1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s5 += fi.real2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s6 += fi.real2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s7 += fi.mark2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s8 += fi.mark2y.ToString("0.00").Replace(',', '.') + "\r\n";
                     cnt++;
                 }
             }
@@ -178,14 +178,14 @@ namespace eagle2tvm
             {
                 foreach (fiducialitem fi in info.bfiducialslist)
                 {
-                    s1 += fi.mark1x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s2 += fi.mark1y.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s3 += fi.real1x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s4 += fi.real1y.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s5 += fi.mark2x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s6 += fi.mark2y.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s7 += fi.real2x.ToString("0.00").Replace(',', '.') + "\r\n";
-                    s8 += fi.real2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s1 += fi.real1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s2 += fi.real1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s3 += fi.mark1x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s4 += fi.mark1y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s5 += fi.real2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s6 += fi.real2y.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s7 += fi.mark2x.ToString("0.00").Replace(',', '.') + "\r\n";
+                    s8 += fi.mark2y.ToString("0.00").Replace(',', '.') + "\r\n";
                     cnt++;
                 }
             }
@@ -355,19 +355,21 @@ namespace eagle2tvm
                             }
                         }
 
-                        info.tfiducialslist.Clear();
-                        info.bfiducialslist.Clear();
+                        if (side == "top")
+                            info.tfiducialslist.Clear();
+                        else
+                            info.bfiducialslist.Clear();
                         for (int f = 0; f < 50; f++)
                         {
                             fiducialitem fi = new fiducialitem();
-                            fi.mark1x = tailinfo[0, f];
-                            fi.mark1y = tailinfo[1, f];
-                            fi.real1x = tailinfo[2, f];
-                            fi.real1y = tailinfo[3, f];
-                            fi.mark2x = tailinfo[4, f];
-                            fi.mark2y = tailinfo[5, f];
-                            fi.real2x = tailinfo[6, f];
-                            fi.real2y = tailinfo[7, f];
+                            fi.real1x = tailinfo[0, f];
+                            fi.real1y = tailinfo[1, f];
+                            fi.mark1x = tailinfo[2, f];
+                            fi.mark1y = tailinfo[3, f];
+                            fi.real2x = tailinfo[4, f];
+                            fi.real2y = tailinfo[5, f];
+                            fi.mark2x = tailinfo[6, f];
+                            fi.mark2y = tailinfo[7, f];
                             if (side == "top")
                                 info.tfiducialslist.Add(fi);
                             else
