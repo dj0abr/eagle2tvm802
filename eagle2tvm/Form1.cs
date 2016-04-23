@@ -542,12 +542,12 @@ namespace eagle2tvm
         void setStackComboboxes()
         {
             // Stackname Combobox
-            String[] sa = new String[58];
+            String[] sa = new String[68];
             int idx = 0;
             for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
             for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
-            for (int i = 1; i <= 10; i++) sa[idx++] = "I" + i.ToString();
-            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 58, "stackname", "System.String");
+            for (int i = 1; i <= 20; i++) sa[idx++] = "I" + i.ToString();
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 68, "stackname", "System.String");
             dataGridView_stack.Columns.Insert(0,cb3);
 
             // Nozzle Combobox
@@ -572,13 +572,13 @@ namespace eagle2tvm
         void setTopComboboxes()
         {
             // Stackname Combobox
-            String[] sa = new String[59];
+            String[] sa = new String[69];
             int idx = 0;
             for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
             for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
-            for (int i = 1; i <= 10; i++) sa[idx++] = "I" + i.ToString();
-            sa[58] = "L???";
-            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 59, "stackname", "System.String");
+            for (int i = 1; i <= 20; i++) sa[idx++] = "I" + i.ToString();
+            sa[68] = "L???";
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 69, "stackname", "System.String");
             tdataGridView_devices.Columns.Insert(4, cb3);
 
             // Nozzle Combobox
@@ -603,13 +603,13 @@ namespace eagle2tvm
         void setBottomComboboxes()
         {
             // Stackname Combobox
-            String[] sa = new String[59];
+            String[] sa = new String[69];
             int idx = 0;
             for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
             for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
-            for (int i = 1; i <= 10; i++) sa[idx++] = "I" + i.ToString();
-            sa[58] = "L???";
-            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 59, "stackname", "System.String");
+            for (int i = 1; i <= 20; i++) sa[idx++] = "I" + i.ToString();
+            sa[68] = "L???";
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 69, "stackname", "System.String");
             bdataGridView_devices.Columns.Insert(4, cb3);
 
             // Nozzle Combobox
