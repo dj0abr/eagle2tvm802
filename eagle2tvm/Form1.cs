@@ -233,7 +233,8 @@ namespace eagle2tvm
                     foreach (stackitem si in info.stacklist)
                     {
                         bool doauto = false;
-                        if (dev.name.ToUpper() == si.name.ToUpper() && dev.footprint.ToUpper().Contains(si.footprint.ToUpper())) doauto = true;
+                        if (dev.name.ToUpper() == si.name.ToUpper() && dev.footprint.ToUpper().Contains(si.footprint.ToUpper()))
+                            doauto = true;
 
                         if (doauto)
                         {
@@ -241,6 +242,7 @@ namespace eagle2tvm
                             dev.nozzle = si.nozzle;
                             dev.height = si.height;
                             dev.vision = si.vision;
+                            dev.speed = si.speed;
                             break;
                         }
                     }
@@ -278,10 +280,19 @@ namespace eagle2tvm
 
         Font printFont = new Font("Courier New", 10);
         int printlistidx = 0;
+        bool printused = false;
 
         private void button_printstacklist_Click(object sender, EventArgs e)
         {
             printlistidx = 0;
+            printused = false;
+            printDocument.Print();
+        }
+
+        private void button_printusedstacks_Click(object sender, EventArgs e)
+        {
+            printlistidx = 0;
+            printused = true;
             printDocument.Print();
         }
 
@@ -311,6 +322,15 @@ namespace eagle2tvm
                     line = "================================";
                 }
                 else {
+                    if(printused)
+                    {
+                        printlistidx = getNextUsedStack(printlistidx);
+                        if(printlistidx == -1)
+                        {
+                            line = null;
+                            break;
+                        }
+                    }
                     String fl = info.stacklist[printlistidx].stackname.Substring(0, 1);
                     if (lastStackletter != fl)
                     {
@@ -341,6 +361,27 @@ namespace eagle2tvm
             {
                 e.HasMorePages = true;
             }
+        }
+
+        int getNextUsedStack(int idx)
+        {
+            while (idx < info.stacklist.Count)
+            {
+                foreach (device dev in egl.tdevlist)
+                {
+                    if (info.stacklist[idx].stackname == dev.stackname)
+                        return idx;
+                }
+
+                foreach (device dev in egl.bdevlist)
+                {
+                    if (info.stacklist[idx].stackname == dev.stackname)
+                        return idx;
+                }
+                idx++;
+            }
+
+            return -1;
         }
 
         bool topside = true;
@@ -513,13 +554,18 @@ namespace eagle2tvm
             DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
             dataGridView_stack.Columns.Insert(5,cb2);
 
+            // Speed Combobox
+            DataGridViewComboBoxColumn cb4 = makeFilledStringDataSource(new String[] { "5", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100", }, 11, "speed", "System.Int32");
+            dataGridView_stack.Columns.Insert(7, cb4);
+
             // Vision Combobox
             DataGridViewComboBoxColumn cb1 = makeFilledStringDataSource(new String[] { "None", "Quick", "Accurate" }, 3, "vision", "System.String");
             dataGridView_stack.Columns.Insert(8,cb1);
 
             dataGridView_stack.Columns[1].Visible = false;  // und blende die originalen Spalten aus
             dataGridView_stack.Columns[6].Visible = false;
-            dataGridView_stack.Columns[9].Visible = false;
+            dataGridView_stack.Columns[10].Visible = false;
+            dataGridView_stack.Columns[11].Visible = false;
         }
 
         // Comboboxen für die TOPliste erzeugen
@@ -539,6 +585,10 @@ namespace eagle2tvm
             DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
             tdataGridView_devices.Columns.Insert(3, cb2);
 
+            // Speed Combobox
+            DataGridViewComboBoxColumn cb4 = makeFilledStringDataSource(new String[] { "5", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100", }, 11, "speed", "System.Int32");
+            tdataGridView_devices.Columns.Insert(7, cb4);
+
             // Vision Combobox
             DataGridViewComboBoxColumn cb1 = makeFilledStringDataSource(new String[] { "None", "Quick", "Accurate" }, 3, "vision", "System.String");
             tdataGridView_devices.Columns.Insert(8, cb1);
@@ -546,6 +596,7 @@ namespace eagle2tvm
             tdataGridView_devices.Columns[4].Visible = false;  // und blende die originalen Spalten aus
             tdataGridView_devices.Columns[6].Visible = false;
             tdataGridView_devices.Columns[13].Visible = false;
+            tdataGridView_devices.Columns[14].Visible = false;
         }
 
         // Comboboxen für die BOTTOMliste erzeugen
@@ -565,6 +616,10 @@ namespace eagle2tvm
             DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
             bdataGridView_devices.Columns.Insert(3, cb2);
 
+            // Speed Combobox
+            DataGridViewComboBoxColumn cb4 = makeFilledStringDataSource(new String[] { "5", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100", }, 11, "speed", "System.Int32");
+            bdataGridView_devices.Columns.Insert(7, cb4);
+
             // Vision Combobox
             DataGridViewComboBoxColumn cb1 = makeFilledStringDataSource(new String[] { "None", "Quick", "Accurate" }, 3, "vision", "System.String");
             bdataGridView_devices.Columns.Insert(8, cb1);
@@ -572,6 +627,7 @@ namespace eagle2tvm
             bdataGridView_devices.Columns[4].Visible = false;  // und blende die originalen Spalten aus
             bdataGridView_devices.Columns[6].Visible = false;
             bdataGridView_devices.Columns[13].Visible = false;
+            bdataGridView_devices.Columns[14].Visible = false;
         }
 
         void setGUI()
@@ -589,6 +645,7 @@ namespace eagle2tvm
                 tabPage2.Text = "TOP devices";
                 label7.Text = label8.Text = label9.Text = "Click on the header to sort a column !";
                 button_printstacklist.Text = button_bdruck.Text = button_tdruck.Text = "Print";
+                button_printusedstacks.Text = "Print used Stacks";
                 tabPage3.Text = "BOTTOM devices";
                 button_loadstacklist.Text = "Load";
                 button_savestack.Text = "Save";
@@ -656,6 +713,7 @@ are kept as they are.
                 tabPage2.Text = "TOP Bauteile";
                 label7.Text = label8.Text = label9.Text = "zum Sortieren den Spaltenkopf anklicken !";
                 button_printstacklist.Text = button_bdruck.Text = button_tdruck.Text = "Drucken";
+                button_printusedstacks.Text = "Drucke benutzte Stacks";
                 tabPage3.Text = "BOTTOM Bauteile";
                 button_loadstacklist.Text = "Laden";
                 button_savestack.Text = "Speichern";

@@ -60,6 +60,10 @@
             this.button_savestack = new System.Windows.Forms.Button();
             this.dataGridView_stack = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dataGridView_bfiducials = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView_fiducials = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -76,10 +80,7 @@
             this.printDocument_bdruck = new System.Drawing.Printing.PrintDocument();
             this.button_en = new System.Windows.Forms.Button();
             this.button_de = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.dataGridView_bfiducials = new System.Windows.Forms.DataGridView();
-            this.label10 = new System.Windows.Forms.Label();
+            this.button_printusedstacks = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage_loadfiles.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -92,9 +93,9 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stack)).BeginInit();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_bfiducials)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_fiducials)).BeginInit();
             this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_bfiducials)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -384,6 +385,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button_printusedstacks);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.button_printstacklist);
             this.tabPage1.Controls.Add(this.button_loadstacklist);
@@ -463,6 +465,54 @@
             this.tabPage4.TabIndex = 6;
             this.tabPage4.Text = "Fiducials";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(269, 217);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(516, 40);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Definiere im Board zwei SMD Pads mit den Namen: FID1 und FID2.\r\nDiese werden auto" +
+    "matisch als Fiducials importiert.";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(17, 118);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(183, 20);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "FIDUCIAL BOTTOM:";
+            // 
+            // dataGridView_bfiducials
+            // 
+            this.dataGridView_bfiducials.AllowUserToAddRows = false;
+            this.dataGridView_bfiducials.AllowUserToDeleteRows = false;
+            this.dataGridView_bfiducials.AllowUserToResizeColumns = false;
+            this.dataGridView_bfiducials.AllowUserToResizeRows = false;
+            this.dataGridView_bfiducials.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView_bfiducials.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_bfiducials.Location = new System.Drawing.Point(273, 101);
+            this.dataGridView_bfiducials.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView_bfiducials.MultiSelect = false;
+            this.dataGridView_bfiducials.Name = "dataGridView_bfiducials";
+            this.dataGridView_bfiducials.RowHeadersVisible = false;
+            this.dataGridView_bfiducials.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridView_bfiducials.Size = new System.Drawing.Size(895, 52);
+            this.dataGridView_bfiducials.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(142, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "FIDUCIAL TOP:";
             // 
             // dataGridView_fiducials
             // 
@@ -602,53 +652,15 @@
             this.button_de.UseVisualStyleBackColor = true;
             this.button_de.Click += new System.EventHandler(this.button_de_Click);
             // 
-            // label1
+            // button_printusedstacks
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "FIDUCIAL TOP:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(17, 118);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(183, 20);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "FIDUCIAL BOTTOM:";
-            // 
-            // dataGridView_bfiducials
-            // 
-            this.dataGridView_bfiducials.AllowUserToAddRows = false;
-            this.dataGridView_bfiducials.AllowUserToDeleteRows = false;
-            this.dataGridView_bfiducials.AllowUserToResizeColumns = false;
-            this.dataGridView_bfiducials.AllowUserToResizeRows = false;
-            this.dataGridView_bfiducials.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView_bfiducials.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_bfiducials.Location = new System.Drawing.Point(273, 101);
-            this.dataGridView_bfiducials.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView_bfiducials.MultiSelect = false;
-            this.dataGridView_bfiducials.Name = "dataGridView_bfiducials";
-            this.dataGridView_bfiducials.RowHeadersVisible = false;
-            this.dataGridView_bfiducials.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView_bfiducials.Size = new System.Drawing.Size(895, 52);
-            this.dataGridView_bfiducials.TabIndex = 3;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(269, 217);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(516, 40);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "Definiere im Board zwei SMD Pads mit den Namen: FID1 und FID2.\r\nDiese werden auto" +
-    "matisch als Fiducials importiert.";
+            this.button_printusedstacks.Location = new System.Drawing.Point(491, 643);
+            this.button_printusedstacks.Name = "button_printusedstacks";
+            this.button_printusedstacks.Size = new System.Drawing.Size(199, 29);
+            this.button_printusedstacks.TabIndex = 5;
+            this.button_printusedstacks.Text = "Drucke benutzte Stacks";
+            this.button_printusedstacks.UseVisualStyleBackColor = true;
+            this.button_printusedstacks.Click += new System.EventHandler(this.button_printusedstacks_Click);
             // 
             // Form1
             // 
@@ -682,10 +694,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stack)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_bfiducials)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_fiducials)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_bfiducials)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -743,6 +755,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridView_bfiducials;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button_printusedstacks;
     }
 }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.ComponentModel;
 
 namespace eagle2tvm
 {
@@ -58,11 +57,12 @@ namespace eagle2tvm
         public int rot { get; set; }
         public int nozzle { get; set; }
         public double height { get; set; }
+        public int speed { get; set; }
         public String vision { get; set; }
 
         public void Save(StreamWriter sw)
         {
-            sw.WriteLine(stackname + "§" + name + "§" + footprint + "§" + rot.ToString() + "§" + nozzle.ToString() + "§" + height.ToString() + "§" + vision);
+            sw.WriteLine(stackname + "§" + name + "§" + footprint + "§" + rot.ToString() + "§" + nozzle.ToString() + "§" + height.ToString() + "§" + vision + "§" + speed.ToString());
         }
 
         public bool Load(StreamReader sr)
@@ -79,6 +79,14 @@ namespace eagle2tvm
                 nozzle = info.MyToInt32(sa[4]);
                 height = info.MyToDouble(sa[5]);
                 vision = sa[6];
+                try
+                {
+                    speed = info.MyToInt32(sa[7]);
+                }
+                catch
+                {
+                    speed = 50;
+                }
             }
             catch
             {
