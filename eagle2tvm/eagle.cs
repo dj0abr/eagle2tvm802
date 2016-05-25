@@ -124,7 +124,17 @@ namespace eagle2tvm
                 }
             }
 
-            // Spiegle
+            // schau ob evt einer der FIDs noch weiter rechts außen liegt, wenn ja dann nehme diesen
+            foreach(fiducialitem fi in info.bfiducialslist)
+            {
+                if (fi.mark1x > right) right = fi.mark1x;
+            }
+            foreach (fiducialitem fi in info.bfiducialslist)
+            {
+                if (fi.mark2x > right) right = fi.mark2x;
+            }
+
+            // Spiegle SMD Pads
             foreach (device dev in bdevlist)
             {
                 dev.x = Math.Round(right - dev.x,2);
@@ -132,7 +142,14 @@ namespace eagle2tvm
                 //dev.rot = (360-dev.rot) % 360; nicht erforderlich, da diese von Eagle bereits gespiegelt ist
             }
 
-            return 0;
+            // Spiegle Fiducials
+            foreach (fiducialitem fi in info.bfiducialslist)
+            {
+                fi.mark1x = Math.Round(right - fi.mark1x, 2);
+                fi.mark2x = Math.Round(right - fi.mark2x, 2);
+            }
+
+                return 0;
         }
         
         public void DeleteRow(BindingList<device> lst, int idx)
