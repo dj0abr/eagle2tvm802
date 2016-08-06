@@ -1,0 +1,10 @@
+E:\source\eagle2tvm\eagle2tvm\bin\Debug\eagle2tvm.exe.config
+E:\source\eagle2tvm\eagle2tvm\bin\Debug\eagle2tvm.exe
+E:\source\eagle2tvm\eagle2tvm\bin\Debug\eagle2tvm.pdb
+E:\source\eagle2tvm\eagle2tvm\obj\Debug\eagle2tvm.Form1.resources
+E:\source\eagle2tvm\eagle2tvm\obj\Debug\eagle2tvm.Properties.Resources.resources
+E:\source\eagle2tvm\eagle2tvm\obj\Debug\eagle2tvm.splash.resources
+E:\source\eagle2tvm\eagle2tvm\obj\Debug\eagle2tvm.csproj.GenerateResource.Cache
+E:\source\eagle2tvm\eagle2tvm\obj\Debug\eagle2tvm.exe
+E:\source\eagle2tvm\eagle2tvm\obj\Debug\eagle2tvm.pdb
+E:\source\eagle2tvm\eagle2tvm\obj\Debug\eagle2tvm.csprojResolveAssemblyReference.cache

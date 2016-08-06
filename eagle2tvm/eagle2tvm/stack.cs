@@ -59,10 +59,11 @@ namespace eagle2tvm
         public double height { get; set; }
         public int speed { get; set; }
         public String vision { get; set; }
+        public bool pressure { get; set; }
 
         public void Save(StreamWriter sw)
         {
-            sw.WriteLine(stackname + "§" + name + "§" + footprint + "§" + rot.ToString() + "§" + nozzle.ToString() + "§" + height.ToString() + "§" + vision + "§" + speed.ToString());
+            sw.WriteLine(stackname + "§" + name + "§" + footprint + "§" + rot.ToString() + "§" + nozzle.ToString() + "§" + height.ToString() + "§" + vision + "§" + speed.ToString() + "§" + pressure.ToString());
         }
 
         public bool Load(StreamReader sr)
@@ -86,6 +87,14 @@ namespace eagle2tvm
                 catch
                 {
                     speed = 50;
+                }
+                try
+                {
+                    pressure = info.MyToBool(sa[8]);
+                }
+                catch
+                {
+                    pressure = true;
                 }
             }
             catch

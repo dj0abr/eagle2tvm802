@@ -204,19 +204,28 @@ namespace eagle2tvm
             {
                 foreach (device dev in egl.bdevlist)
                 {
-                    bool doauto = false;
+                    bool found = false;
                     foreach (stackitem si in info.stacklist)
                     {
-                        if (dev.name.ToUpper() == si.name.ToUpper() && dev.footprint.ToUpper().Contains(si.footprint.ToUpper())) doauto = true;
-
-                        if (doauto)
+                        if (dev.name.ToUpper() == si.name.ToUpper() && dev.footprint.ToUpper().Contains(si.footprint.ToUpper())) 
                         {
                             dev.stackname = si.stackname.ToUpper();
                             dev.nozzle = si.nozzle;
                             dev.height = si.height;
                             dev.vision = si.vision;
                             dev.speed = si.speed;
+                            dev.pressure = si.pressure;
+                            found = true;
                             break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        // dieses Bauteil befindet sich nicht in der Stackliste
+                        // akzeptiere I, wenn es jedoch L oder B ist setze es auf ???
+                        if (dev.stackname.ToUpper().Substring(0, 1) != "I")
+                        {
+                            dev.stackname = "L???";
                         }
                     }
                 }
@@ -231,20 +240,29 @@ namespace eagle2tvm
             {
                 foreach (device dev in egl.tdevlist)
                 {
+                    bool found = false;
                     foreach (stackitem si in info.stacklist)
                     {
-                        bool doauto = false;
                         if (dev.name.ToUpper() == si.name.ToUpper() && dev.footprint.ToUpper().Contains(si.footprint.ToUpper()))
-                            doauto = true;
-
-                        if (doauto)
                         {
+                            // Bauteil in Stackliste gefunden
                             dev.stackname = si.stackname.ToUpper();
                             dev.nozzle = si.nozzle;
                             dev.height = si.height;
                             dev.vision = si.vision;
                             dev.speed = si.speed;
+                            dev.pressure = si.pressure;
+                            found = true;
                             break;
+                        }
+                    }
+                    if(!found)
+                    {
+                        // dieses Bauteil befindet sich nicht in der Stackliste
+                        // akzeptiere I, wenn es jedoch L oder B ist setze es auf ???
+                        if(dev.stackname.ToUpper().Substring(0,1) != "I")
+                        {
+                            dev.stackname = "L???";
                         }
                     }
                 }
@@ -655,7 +673,7 @@ namespace eagle2tvm
                 label2.Text = "The filename is automatically extended with:\r\nTOP-Layer:  _tvm802_top.csv\r\nBOTTOM-Layer: _tvm802_bottom.csv\r\n";
                 groupBox3.Text = "save TVM802 files";
                 label_usagetop.Text = "Usage:";
-                label10.Text = "Define in the board two SMD pads with the Device-Names FID1 and FID2\r\nthese pads are imported as fiducials";
+                label10.Text = "Define in the board two SMD pads with the Device-Names FID1 and FID2 (for the TOP side)\r\nand FID3 and FID4 (for the bottom side)\r\nthese pads are imported as fiducials";
                 label4.Text =
 @"
 Stack/Tray lists are stored separately and can be used for all boards.
@@ -725,7 +743,7 @@ are kept as they are.
                 label_usagetop.Text = "Bedienung:";
                 label_usage.Text = resources.GetString("label_usage.Text");
                 label4.Text = resources.GetString("label4.Text");
-                this.label10.Text = "Definiere im Board zwei SMD Pads mit den Namen: FID1 und FID2.\r\nDiese werden auto" +
+                this.label10.Text = "Definiere im Board zwei SMD Pads mit den Namen: FID1 und FID2 (für die TOP Seite)\r\nund FID3 und FID4 (für die BOTTOM Seite).\r\nDiese werden auto" +
     "matisch als Fiducials importiert.";
             }
             Invalidate();

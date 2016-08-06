@@ -91,12 +91,12 @@ namespace eagle2tvm
                         else
                             dev = new device(sa[0], sa[1], sa[2], sa[3], sa[4], sa[5]);
 
-                        if (dev.location == "FID1")
+                        if (dev.location == "FID3")
                         {
                             bfi.mark1x = dev.x;
                             bfi.mark1y = dev.y;
                         }
-                        else if (dev.location == "FID2")
+                        else if (dev.location == "FID4")
                         {
                             bfi.mark2x = dev.x;
                             bfi.mark2y = dev.y;

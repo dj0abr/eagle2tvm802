@@ -132,6 +132,22 @@ namespace eagle2tvm
             return r;
         }
 
+        
+        public static bool MyToBool(String s)
+        {
+            bool r = false;
+
+            try
+            {
+                s = s.Replace(',', '.');
+                r = Convert.ToBoolean(s);
+            }
+            catch
+            {
+            }
+            return r;
+        }
+
         public static int MyToInt32(String s)
         {
             int r = 0;
