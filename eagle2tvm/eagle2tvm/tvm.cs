@@ -68,11 +68,14 @@ namespace eagle2tvm
             StreamWriter sw = null;
             try
             {
-                using (sw = new StreamWriter(info.tvmDir + "/" + info.ttvmfile))
-                {
-                    Header(sw);
-                    Devices(sw,egl.tdevlist,all);
-                    WriteTail(sw, "top");
+                if (egl.tdevlist.Count > 0)
+                { 
+                    using (sw = new StreamWriter(info.tvmDir + "/" + info.ttvmfile))
+                    {
+                        Header(sw);
+                        Devices(sw, egl.tdevlist, all);
+                        WriteTail(sw, "top");
+                    }
                 }
             }
             catch
@@ -83,12 +86,15 @@ namespace eagle2tvm
             sw = null;
             try
             {
-                using (sw = new StreamWriter(info.tvmDir + "/" + info.btvmfile))
+                if (egl.bdevlist.Count > 0)
                 {
-                    Header(sw);
-                    Devices(sw, egl.bdevlist,all);
-                    sw.WriteLine(" ");
-                    WriteTail(sw, "bottom");
+                    using (sw = new StreamWriter(info.tvmDir + "/" + info.btvmfile))
+                    {
+                        Header(sw);
+                        Devices(sw, egl.bdevlist, all);
+                        sw.WriteLine(" ");
+                        WriteTail(sw, "bottom");
+                    }
                 }
             }
             catch
@@ -219,17 +225,90 @@ namespace eagle2tvm
             sw.Write(s6);
             sw.Write(s7);
             sw.Write(s8);
-            sw.Write(info.sDefaultTail);
+
+            // schreibe den Rest
+            String dd = info.platinendicke.ToString().Replace(',', '.');
+
+            sw.Write("Other\r\n" + dd + "\r\n\r\n");
+            // jetzt wird angegeben welche Fids aktiv sind
+            cnt = 0;
+            if (side == "top")
+            {
+                foreach (fiducialitem fi in info.tfiducialslist)
+                {
+                    if(fi.real1x != 0 && fi.real1y != 0)
+                        sw.Write("True\r\n");
+                    else
+                        sw.Write("False\r\n");
+                    cnt++;
+                }
+            }
+            else
+            {
+                foreach (fiducialitem fi in info.bfiducialslist)
+                {
+                    if (fi.real1x != 0 && fi.real1y != 0)
+                        sw.Write("True\r\n");
+                    else
+                        sw.Write("False\r\n");
+                    cnt++;
+                }
+            }
+            for (int i = cnt; i < 50; i++)
+            {
+                sw.Write("False\r\n");
+            }
+            sw.Write("\r\n");
+
+            cnt = 0;
+            if (side == "top")
+            {
+                foreach (fiducialitem fi in info.tfiducialslist)
+                {
+                    if (fi.real2x != 0 && fi.real2y != 0)
+                        sw.Write("True\r\n");
+                    else
+                        sw.Write("False\r\n");
+                    cnt++;
+                }
+            }
+            else
+            {
+                foreach (fiducialitem fi in info.bfiducialslist)
+                {
+                    if (fi.real2x != 0 && fi.real2y != 0)
+                        sw.Write("True\r\n");
+                    else
+                        sw.Write("False\r\n");
+                    cnt++;
+                }
+            }
+            for (int i = cnt; i < 50; i++)
+            {
+                sw.Write("False\r\n");
+            }
+            sw.Write("\r\n");
+
+            sw.Write("Mark\r\n");
+            sw.Write("2\r\n");
+            sw.Write("0\r\n");
+            sw.Write("True\r\n");
+            if(side == "top")
+                sw.Write(info.exposure_top.ToString() + "\r\n");
+            else
+                sw.Write(info.exposure_bottom.ToString() + "\r\n");
         }
+
 
         public void LoadCSV(eagle egl)
         {
+            egl.bdevlist.Clear();
+            egl.tdevlist.Clear();
             StreamReader sr = null;
             try
             {
                 using (sr = new StreamReader(info.tvmDir + "/" + info.ttvmfile))
                 {
-                    egl.tdevlist.Clear();
                     while (true)
                     {
                         String s = sr.ReadLine();
@@ -253,7 +332,6 @@ namespace eagle2tvm
             {
                 using (sr = new StreamReader(info.tvmDir + "/" + info.btvmfile))
                 {
-                    egl.bdevlist.Clear();
                     while (true)
                     {
                         String s = sr.ReadLine();
@@ -375,13 +453,31 @@ namespace eagle2tvm
                             else
                                 info.bfiducialslist.Add(fi);
                         }
+                        break;
 
-                        return;
                     }
                     catch
                     {
                         return;
                     }
+                }
+                idx++;
+            }
+            idx = 0;
+            foreach (String sx in sa)
+            {
+                if (sx.Contains("Other"))
+                {
+                    info.platinendicke = info.MyToDouble(sa[idx + 1]);
+                    if (side == "top")
+                    {
+                        info.exposure_top = info.MyToInt32(sa[idx + 106]);
+                    }
+                    else
+                    {
+                        info.exposure_bottom = info.MyToInt32(sa[idx + 106]);
+                    }
+                    break;
                 }
                 idx++;
             }

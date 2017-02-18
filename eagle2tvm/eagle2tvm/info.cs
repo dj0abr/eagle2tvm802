@@ -22,6 +22,9 @@ namespace eagle2tvm
         public static int lang = 1; //0=en 1=de
         public static BindingList<fiducialitem> tfiducialslist = new BindingList<fiducialitem>();
         public static BindingList<fiducialitem> bfiducialslist = new BindingList<fiducialitem>();
+        public static double platinendicke = 1.6;
+        public static int exposure_top = 7;
+        public static int exposure_bottom = 7;
 
         public static void Save()
         {
@@ -132,7 +135,7 @@ namespace eagle2tvm
             return r;
         }
 
-        
+
         public static bool MyToBool(String s)
         {
             bool r = false;
@@ -161,119 +164,5 @@ namespace eagle2tvm
             }
             return r;
         }
-
-        public static String sDefaultTail =
-@"
-Other
-1.60
-
-True
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-
-True
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
-
-Mark
-2
-0
-True
-6
-";
     }
 }

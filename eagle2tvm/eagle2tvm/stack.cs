@@ -55,7 +55,7 @@ namespace eagle2tvm
         public String name { get; set; }
         public String footprint { get; set; }
         public int rot { get; set; }
-        public int nozzle { get; set; }
+        public String nozzle { get; set; }
         public double height { get; set; }
         public int speed { get; set; }
         public String vision { get; set; }
@@ -77,7 +77,7 @@ namespace eagle2tvm
                 name = sa[1];
                 footprint = sa[2];
                 rot = info.MyToInt32(sa[3]);
-                nozzle = info.MyToInt32(sa[4]);
+                nozzle = sa[4];
                 height = info.MyToDouble(sa[5]);
                 vision = sa[6];
                 try
@@ -99,7 +99,7 @@ namespace eagle2tvm
             }
             catch
             {
-                nozzle = 1;
+                nozzle = "1";
                 height = 0.5;
                 vision = "None";
             }

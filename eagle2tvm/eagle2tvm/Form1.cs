@@ -193,6 +193,9 @@ namespace eagle2tvm
                 tvm802.generateTVMfilenames(Path.GetFileName(openTVMfiles.FileName));
                 info.tvmDir = Path.GetDirectoryName(openTVMfiles.FileName);
                 tvm802.LoadCSV(egl);
+                tb_platinendicke.Text = info.platinendicke.ToString();
+                tb_exposure.Text = info.exposure_top.ToString();
+                tb_exposure_bottom.Text = info.exposure_bottom.ToString();
             }
         }
 
@@ -561,16 +564,16 @@ namespace eagle2tvm
         void setStackComboboxes()
         {
             // Stackname Combobox
-            String[] sa = new String[68];
+            String[] sa = new String[78];
             int idx = 0;
             for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
             for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
-            for (int i = 1; i <= 20; i++) sa[idx++] = "I" + i.ToString();
-            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 68, "stackname", "System.String");
+            for (int i = 1; i <= 30; i++) sa[idx++] = "I" + i.ToString();
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 78, "stackname", "System.String");
             dataGridView_stack.Columns.Insert(0,cb3);
 
             // Nozzle Combobox
-            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
+            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" , "1/2"}, 3, "nozzle", "System.String");
             dataGridView_stack.Columns.Insert(5,cb2);
 
             // Speed Combobox
@@ -591,17 +594,17 @@ namespace eagle2tvm
         void setTopComboboxes()
         {
             // Stackname Combobox
-            String[] sa = new String[69];
+            String[] sa = new String[79];
             int idx = 0;
             for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
             for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
-            for (int i = 1; i <= 20; i++) sa[idx++] = "I" + i.ToString();
-            sa[68] = "L???";
-            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 69, "stackname", "System.String");
+            for (int i = 1; i <= 30; i++) sa[idx++] = "I" + i.ToString();
+            sa[78] = "L???";
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 79, "stackname", "System.String");
             tdataGridView_devices.Columns.Insert(4, cb3);
 
             // Nozzle Combobox
-            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
+            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2", "1/2" }, 3, "nozzle", "System.String");
             tdataGridView_devices.Columns.Insert(3, cb2);
 
             // Speed Combobox
@@ -622,17 +625,17 @@ namespace eagle2tvm
         void setBottomComboboxes()
         {
             // Stackname Combobox
-            String[] sa = new String[69];
+            String[] sa = new String[79];
             int idx = 0;
             for (int i = 1; i <= 24; i++) sa[idx++] = "L" + i.ToString();
             for (int i = 1; i <= 24; i++) sa[idx++] = "B" + i.ToString();
-            for (int i = 1; i <= 20; i++) sa[idx++] = "I" + i.ToString();
-            sa[68] = "L???";
-            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 69, "stackname", "System.String");
+            for (int i = 1; i <= 30; i++) sa[idx++] = "I" + i.ToString();
+            sa[78] = "L???";
+            DataGridViewComboBoxColumn cb3 = makeFilledStringDataSource(sa, 79, "stackname", "System.String");
             bdataGridView_devices.Columns.Insert(4, cb3);
 
             // Nozzle Combobox
-            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2" }, 2, "nozzle", "System.Int32");
+            DataGridViewComboBoxColumn cb2 = makeFilledStringDataSource(new String[] { "1", "2", "1/2" }, 3, "nozzle", "System.String");
             bdataGridView_devices.Columns.Insert(3, cb2);
 
             // Speed Combobox
@@ -757,6 +760,118 @@ are kept as they are.
         private void dataGridView_stack_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
+        }
+
+        private void tb_platinendicke_TextChanged(object sender, EventArgs e)
+        {
+            info.platinendicke = info.MyToDouble(tb_platinendicke.Text);
+            if (info.platinendicke == 0) info.platinendicke = 1.6;
+        }
+
+        private void tb_exposure_TextChanged(object sender, EventArgs e)
+        {
+            info.exposure_top = info.MyToInt32(tb_exposure.Text);
+            if (info.exposure_top == 0) info.exposure_top = 7;
+        }
+
+        private void tb_exposure_bottom_TextChanged(object sender, EventArgs e)
+        {
+            info.exposure_bottom = info.MyToInt32(tb_exposure.Text);
+            if (info.exposure_bottom == 0) info.exposure_bottom = 7;
+        }
+
+        private void bt_checkstackB_Click(object sender, EventArgs e)
+        {
+            bool allok = true;
+            String s = "";
+            foreach (device dev in egl.bdevlist)
+            {
+                bool found = false;
+                foreach (stackitem si in info.stacklist)
+                {
+                    if (dev.name.ToUpper() == si.name.ToUpper() && dev.footprint.ToUpper().Contains(si.footprint.ToUpper()))
+                    {
+                        // Bauteil in Stackliste gefunden
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    if (dev.stackname.ToUpper().Substring(0, 1) != "I")
+                    {
+                        // dieses Bauteil befindet sich nicht in der Stackliste
+                        s += dev.name + " " + dev.footprint + " Stack: ???\r\n";
+                        allok = false;
+                    }
+                }
+            }
+            if (!allok)
+            {
+                MessageBox.Show(s,"Stack Check");
+
+            }
+        }
+
+        private void bt_checkstackT_Click(object sender, EventArgs e)
+        {
+            bool allok = true;
+            String s = "";
+            foreach (device dev in egl.tdevlist)
+            {
+                bool found = false;
+                foreach (stackitem si in info.stacklist)
+                {
+                    if (dev.name.ToUpper() == si.name.ToUpper() && dev.footprint.ToUpper().Contains(si.footprint.ToUpper()))
+                    {
+                        // Bauteil in Stackliste gefunden
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    if (dev.stackname.ToUpper().Substring(0, 1) != "I")
+                    {
+                        // dieses Bauteil befindet sich nicht in der Stackliste
+                        s += dev.name + " " + dev.footprint + " Stack: ???\r\n";
+                        allok = false;
+                    }
+                }
+            }
+            if(!allok)
+            {
+                MessageBox.Show(s, "Stack Check");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String s = "";
+
+            for(int i=0; i<info.stacklist.Count; i++)
+            {
+                int ret = -1;
+                foreach (device dev in egl.tdevlist)
+                {
+                    if (info.stacklist[i].name == dev.name)
+                        ret = 0;
+                }
+                foreach (device dev in egl.bdevlist)
+                {
+                    if (info.stacklist[i].name == dev.name)
+                        ret = 0;
+                }
+
+                if (ret == -1)
+                {
+                    s += info.stacklist[i].stackname + " " + info.stacklist[i].name + "\r\n";
+                }
+            }
+            if(s.Length > 1)
+            {
+                MessageBox.Show(s);
+            }
         }
     }
 }

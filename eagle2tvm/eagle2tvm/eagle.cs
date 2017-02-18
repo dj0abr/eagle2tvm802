@@ -28,6 +28,7 @@ namespace eagle2tvm
 
             // Lade TOP layer
             StreamReader sr = null;
+            bool fidfound = false;
             try
             {
                 using (sr = new StreamReader(tfilename))
@@ -52,16 +53,28 @@ namespace eagle2tvm
                         {
                             tfi.mark1x = dev.x;
                             tfi.mark1y = dev.y;
+                            fidfound = true;
                         }
                         else if (dev.location == "FID2")
                         {
                             tfi.mark2x = dev.x;
                             tfi.mark2y = dev.y;
+                            fidfound = true;
                         }
                         else
                             tdevlist.Add(dev);
                     }
-                    info.tfiducialslist.Add(tfi);
+                    if (fidfound)
+                    {
+                        // bei Nutzen müssen alle Real Koordinaten die gleichen sein
+                        // trage daher für alle 5 Einzelplatinen das gleiche ein
+                        // die Maschinenkoords müssen natürlich auf die jeweiligen FIDs eingemessen werden
+                        info.tfiducialslist.Add(tfi);
+                        info.tfiducialslist.Add(tfi);
+                        info.tfiducialslist.Add(tfi);
+                        info.tfiducialslist.Add(tfi);
+                        info.tfiducialslist.Add(tfi);
+                    }
                 }
             }
             catch (Exception e)
@@ -72,6 +85,7 @@ namespace eagle2tvm
 
             // Lade Bottom Layer
             sr = null;
+            fidfound = false;
             try
             {
                 using (sr = new StreamReader(bfilename))
@@ -95,16 +109,28 @@ namespace eagle2tvm
                         {
                             bfi.mark1x = dev.x;
                             bfi.mark1y = dev.y;
+                            fidfound = true;
                         }
                         else if (dev.location == "FID4")
                         {
                             bfi.mark2x = dev.x;
                             bfi.mark2y = dev.y;
+                            fidfound = true;
                         }
                         else
                             bdevlist.Add(dev);
                     }
-                    info.bfiducialslist.Add(bfi);
+                    if (fidfound)
+                    {
+                        // bei Nutzen müssen alle Real Koordinaten die gleichen sein
+                        // trage daher für alle 5 Einzelplatinen das gleiche ein
+                        // die Maschinenkoords müssen natürlich auf die jeweiligen FIDs eingemessen werden
+                        info.bfiducialslist.Add(bfi);
+                        info.bfiducialslist.Add(bfi);
+                        info.bfiducialslist.Add(bfi);
+                        info.bfiducialslist.Add(bfi);
+                        info.bfiducialslist.Add(bfi);
+                    }
                 }
             }
             catch (Exception e)
@@ -174,7 +200,7 @@ namespace eagle2tvm
         public String location { get; set; }
         public String name { get; set; }
         public String footprint { get; set; }
-        public int nozzle { get; set; }
+        public String nozzle { get; set; }
         public String stackname { get; set; }
         public double x { get; set; }
         public double y { get; set; }
@@ -194,7 +220,7 @@ namespace eagle2tvm
             y = info.MyToDouble(yi);
             rot = info.MyToDouble(r);
 
-            nozzle = info.MyToInt32(noz);
+            nozzle = noz;
             stackname = sn;
             height = info.MyToDouble(h);
             speed = info.MyToInt32(spd);
