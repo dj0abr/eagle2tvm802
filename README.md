@@ -25,6 +25,6 @@ Nozzles may be set to 1, 2 or 1/2.
 =======================================================
 we support EAGLE V7.
 
-we refuse Eagle V8 due to totally crazy and unacceptable licensing conditions by autodesk. What they are doing is AGAINST us, the customers !
+we DO NOT support EAGLE V8 until autodesk changes the unacceptable licensing conditions.
 =======================================================
 
