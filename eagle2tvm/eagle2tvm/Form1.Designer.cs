@@ -68,6 +68,7 @@
             this.button_bzuordnung = new System.Windows.Forms.Button();
             this.bdataGridView_devices = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.button_printusedstacks = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.button_printstacklist = new System.Windows.Forms.Button();
@@ -103,7 +104,6 @@
             this.printDocument_bdruck = new System.Drawing.Printing.PrintDocument();
             this.button_en = new System.Windows.Forms.Button();
             this.button_de = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage_loadfiles.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -496,6 +496,16 @@
             this.tabPage1.Text = "Stack/Tray";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(408, 803);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(178, 37);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "unbenutzte Stacks";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // button_printusedstacks
             // 
             this.button_printusedstacks.Location = new System.Drawing.Point(592, 802);
@@ -601,7 +611,7 @@
             this.tabPage4.Controls.Add(this.dataGridView_fiducials);
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(1366, 852);
             this.tabPage4.TabIndex = 6;
             this.tabPage4.Text = "Fiducials";
@@ -873,16 +883,6 @@
             this.button_de.UseVisualStyleBackColor = true;
             this.button_de.Click += new System.EventHandler(this.button_de_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(408, 803);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(178, 37);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "unbenutzte Stacks";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -895,7 +895,7 @@
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
-            this.Text = "Eagle mnt/mnb to TVM802 Converter V1.10";
+            this.Text = "Eagle mnt/mnb to TVM802 Converter V1.12";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage_loadfiles.ResumeLayout(false);
