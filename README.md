@@ -20,4 +20,4 @@ automatic Fiducial coordinate import from eagle board.
 See Fiducial Window for details.
 
 changes V1.12:
-Nozzels may be set to 1, 2 or 1/2.
+Nozzles may be set to 1, 2 or 1/2.
