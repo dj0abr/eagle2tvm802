@@ -21,3 +21,10 @@ See Fiducial Window for details.
 
 changes V1.12:
 Nozzles may be set to 1, 2 or 1/2.
+
+=======================================================
+we support EAGLE V7
+
+we refuse Eagle V8 due to totally crazy and unacceptable licensing conditions by autocad. What they are doing is AGAINST us, the customers !
+=======================================================
+
