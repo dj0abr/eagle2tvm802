@@ -18,6 +18,20 @@ namespace eagle2tvm
 "List", // 10
 "side",    // 11
         };
+        static String[] spl = new String[] {
+"Niekompletna definicja: ",    // 0
+"Błąd na stronie TOP",     // 1
+"Błąd na stronie BOTTOM",     // 2
+"Folder",  // 3
+"Nazwa pliku",   // 4
+"Elementy", //5
+"lustrzane odbicie",   // 6
+"Przydzielić wartości torów podajników/tacek automatycznie?", // 7
+"Przydział automatyczny", // 8
+"Przydział podajników/tacek:", // 9
+"Lista", // 10
+"strona",    // 11
+        };
 
         // language.str(x)
         static String[] sde = new String[] {
@@ -38,6 +52,7 @@ namespace eagle2tvm
         public static String str(int idx)
         {
             if (info.lang == 0) return sen[idx];
+            if (info.lang == 2) return spl[idx];
             return sde[idx];
         }
     }

@@ -117,27 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label_usage.Text" xml:space="preserve">
-    <value>1. Stack/Tray Liste entsprechend der Bauteilebestückung der TVM802 ausfüllen
-     (die automatische Zuordnung zum Layout erfolgt über "name" und "footprint")
-
-2. in EAGLE: das ULP mountsmd ausführen, das erzeugt die mnt und mnb Dateien
-
-3. "Lade Eagle Dateien" klicken und mnt oder mnb auswählen (es werden dann 
-    automatisch  beide geladen)
-
-4. im Fenster "TOP-" oder "BOTTOM Bauteile" alle Einstellungen vornehmen, oder 
-    Auto-Stack klicken um automatisch zuzuweisen (dazu müssen Name und 
-    Footprint der Platine den Namen in der Stackliste entsprechen !)
-
-5. "Erstelle TVM802 Dateien" klicken um alles zu speichern
-
-
-Mit der TVM802 die Passermarken (Fiducials) einstellen und speichern.
-Ab jetzt kann die TVM802 Datei hier geladen und bearbeitet werden und 
-alle Einstellungen inkl. Passermarken bleiben erhalten.
-</value>
-  </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Stack/Tray Liste: wird unabhängig gespeichert und kann für alle Platinen benutzt werden.
 
@@ -162,6 +141,27 @@ auf X=0 gesetzt (Spiegelachse). Bei der Angabe der Fiducial-Positionen ist der O
 Statusfenster unten steht welches Bauteil als Spiegelachse verwendet wurde. Alle weiteren Koordinaten und 
 Rotationen werden für den Bottom-Layer automatisch berechnet.</value>
   </data>
+  <data name="label_usage.Text" xml:space="preserve">
+    <value>1. Stack/Tray Liste entsprechend der Bauteilebestückung der TVM802 ausfüllen
+     (die automatische Zuordnung zum Layout erfolgt über "name" und "footprint")
+
+2. in EAGLE: das ULP mountsmd ausführen, das erzeugt die mnt und mnb Dateien
+
+3. "Lade Eagle Dateien" klicken und mnt oder mnb auswählen (es werden dann 
+    automatisch  beide geladen)
+
+4. im Fenster "TOP-" oder "BOTTOM Bauteile" alle Einstellungen vornehmen, oder 
+    Auto-Stack klicken um automatisch zuzuweisen (dazu müssen Name und 
+    Footprint der Platine den Namen in der Stackliste entsprechen !)
+
+5. "Erstelle TVM802 Dateien" klicken um alles zu speichern
+
+
+Mit der TVM802 die Passermarken (Fiducials) einstellen und speichern.
+Ab jetzt kann die TVM802 Datei hier geladen und bearbeitet werden und 
+alle Einstellungen inkl. Passermarken bleiben erhalten.
+</value>
+  </data>
   <metadata name="openEagleFiles.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -185,5 +185,8 @@ Rotationen werden für den Bottom-Layer automatisch berechnet.</value>
   </metadata>
   <metadata name="printDocument_bdruck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1119, 17</value>
+  </metadata>
+  <metadata name="openUniversalFiles.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1296, 17</value>
   </metadata>
 </root>

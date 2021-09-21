@@ -22,7 +22,8 @@ namespace eagle2tvm
         public int Load()
         {
             String filename = info.LastDir + "//" + info.LastFile;
-
+            // input data from Eagle mnt/mnb files is without any headers and is organised as:
+            // designator x-coord y-coord rotation value footprint
             String tfilename = filename.Substring(0,filename.Length - 1) + "t";
             String bfilename = filename.Substring(0,filename.Length - 1) + "b";
 
@@ -208,10 +209,11 @@ namespace eagle2tvm
         public double height { get; set; }
         public int speed { get; set; }
         public String vision { get; set; }
+        public String check { get; set; }
         public bool pressure { get; set; }
 
         public device(String loc, String xi, String yi, String r, String n, String f,
-                        String noz = "1", String sn = "L???", String h = "0.5", String spd = "50", String vis = "None", String prs = "True")
+                        String noz = "1", String sn = "L???", String h = "0.5", String spd = "50", String vis = "None", String prs = "True", String check = "Pressure")
         {
             location = loc.Trim();
             name = n.Trim();

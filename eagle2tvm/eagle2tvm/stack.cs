@@ -57,13 +57,17 @@ namespace eagle2tvm
         public int rot { get; set; }
         public String nozzle { get; set; }
         public double height { get; set; }
+        public double dimx { get; set; }
+        public double dimy { get; set; }
+        public double maxerror { get; set; }
+        public int treshhold { get; set; }
         public int speed { get; set; }
         public String vision { get; set; }
         public bool pressure { get; set; }
 
         public void Save(StreamWriter sw)
         {
-            sw.WriteLine(stackname + "§" + name + "§" + footprint + "§" + rot.ToString() + "§" + nozzle.ToString() + "§" + height.ToString() + "§" + vision + "§" + speed.ToString() + "§" + pressure.ToString());
+            sw.WriteLine(stackname + "§" + name + "§" + footprint + "§" + rot.ToString() + "§" + nozzle.ToString() + "§" + height.ToString() + "§" + vision + "§" + speed.ToString() + "§" + pressure.ToString() + "§" + dimx.ToString() + "§" + dimy.ToString() + "§" + maxerror.ToString()+ "§" + treshhold.ToString());
         }
 
         public bool Load(StreamReader sr)
@@ -95,6 +99,38 @@ namespace eagle2tvm
                 catch
                 {
                     pressure = true;
+                }
+                try
+                {
+                    dimx = info.MyToDouble(sa[9]);
+                }
+                catch
+                {
+                    dimx = 1.6; // 0603 size component as default value
+                }
+                try
+                {
+                    dimy = info.MyToDouble(sa[10]);
+                }
+                catch
+                {
+                    dimy = 0.8;
+                }
+                try
+                {
+                    maxerror = info.MyToDouble(sa[11]);
+                }
+                catch
+                {
+                    maxerror = 0.1; // 10%
+                }
+                try
+                {
+                    treshhold = info.MyToInt32(sa[12]);
+                }
+                catch
+                {
+                    treshhold = 60;
                 }
             }
             catch
