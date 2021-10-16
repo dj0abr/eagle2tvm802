@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="stack.cs" />
     <Compile Include="tvm.cs" />
+    <Compile Include="universal.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -105,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\flagge-grossbritannien.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\flagge-poland.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

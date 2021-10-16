@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eagle2tvm", "eagle2tvm\eagle2tvm.csproj", "{B1F963ED-56AA-4519-B30D-A109074FE54D}"
 EndProject
@@ -13,10 +13,13 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B1F963ED-56AA-4519-B30D-A109074FE54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1F963ED-56AA-4519-B30D-A109074FE54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1F963ED-56AA-4519-B30D-A109074FE54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1F963ED-56AA-4519-B30D-A109074FE54D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F963ED-56AA-4519-B30D-A109074FE54D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F963ED-56AA-4519-B30D-A109074FE54D}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA8CAC94-F73F-44CC-B2A7-684B86E16883}
 	EndGlobalSection
 EndGlobal

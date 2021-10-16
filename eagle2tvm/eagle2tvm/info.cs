@@ -19,7 +19,7 @@ namespace eagle2tvm
         public static String rightmostdevice = "";
         public static int ostype = 0;   // 1=Linux
         public static String cwd = "";
-        public static int lang = 1; //0=en 1=de
+        public static int lang = 1; //0=en 1=de 2=pl
         public static BindingList<fiducialitem> tfiducialslist = new BindingList<fiducialitem>();
         public static BindingList<fiducialitem> bfiducialslist = new BindingList<fiducialitem>();
         public static double platinendicke = 1.6;
@@ -127,6 +127,12 @@ namespace eagle2tvm
             try
             {
                 s = s.Replace(',', '.');
+                s = s.Trim('"');
+                if (s.Contains("mil"))
+                    s = s.Substring(0,s.Length - 3);
+                else if (s.Contains("mm"))
+                    s = s.Substring(0,s.Length - 2);
+                
                 r = Convert.ToDouble(s, System.Globalization.CultureInfo.InvariantCulture);
             }
             catch

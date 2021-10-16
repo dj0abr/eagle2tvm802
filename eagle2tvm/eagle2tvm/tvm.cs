@@ -107,7 +107,7 @@ namespace eagle2tvm
         void Header(StreamWriter sw)
         {
             String s =
-@"""Designator"",""NozzleNum"",""StackNum"",""Mid X"",""Mid Y"",""Rotation"",""Height"",""Speed"",""Vision"",""Pressure"",""Explanation""
+@"""Designator"",""NozzleNum"",""StackNum"",""Mid X"",""Mid Y"",""Rotation"",""Height"",""Speed"",""Vision"",""Check"",""Explanation""
 """"";
             sw.WriteLine(s);
         }
@@ -137,7 +137,13 @@ namespace eagle2tvm
 
                 String s = "\"" + dev.location.Replace(",", ".") + "\",";
                 s += "\"" + dev.nozzle.ToString().Replace(",", ".") + "\",";
-                s += "\"" + dev.stackname.Replace(",", ".") + "\",";
+                 if (dev.stackname=="L???")
+                {
+                    s += "\"" + "L1" + "\",";
+                    Form1.textBox_info.Text += "Device " + dev.location + " has unassigned stack lane!\r\n";
+                }
+                else
+                    s += "\"" + dev.stackname.Replace(",", ".") + "\",";
                 s += "\"" + dev.x.ToString("0.00").Replace(",", ".") + "\",";
                 s += "\"" + dev.y.ToString("0.00").Replace(",", ".") + "\",";
                 s += "\"" + newrot.ToString("0.00").Replace(",", ".") + "\",";
@@ -145,9 +151,9 @@ namespace eagle2tvm
                 s += "\"" + dev.speed.ToString().Replace(",", ".") + "\",";
                 s += "\"" + dev.vision.Replace(",", ".") + "\",";
                 if (dev.pressure)
-                    s += "\"True\",";
+                    s += "\"Pressure\",";
                 else
-                    s += "\"False\",";
+                    s += "\"None\",";
                 s += "\"" + dev.name.Replace(",", ".") + " (" + dev.footprint.Replace(",", ".") + ") " + "{" + dev.rot.ToString("0.00").Replace(",", ".") + "}\"";
 
                 sw.WriteLine(s);
@@ -229,7 +235,7 @@ namespace eagle2tvm
             // schreibe den Rest
             String dd = info.platinendicke.ToString().Replace(',', '.');
 
-            sw.Write("Other\r\n" + dd + "\r\n\r\n");
+            sw.Write("Other\r\n" + dd + "\r\n"+ "4.0\r\n0.0\r\n" +"\r\n");      // board thickness, mark size (square size or circle diameter), unknown
             // jetzt wird angegeben welche Fids aktiv sind
             cnt = 0;
             if (side == "top")
@@ -297,6 +303,87 @@ namespace eagle2tvm
                 sw.Write(info.exposure_top.ToString() + "\r\n");
             else
                 sw.Write(info.exposure_bottom.ToString() + "\r\n");
+
+            sw.Write("\r\nStack\r\n");
+            for (int i=0;i<60;i++)
+            {
+                try
+                {
+                    sw.Write(info.stacklist[i].name+"\r\n");
+                }
+                catch
+                {
+                    //sw.Write("Lane_" + i.ToString() +"\r\n");
+                    sw.Write("\r\n");
+                }
+            }
+            sw.Write("\r\n");
+
+            for (int i = 0; i < 60; i++)
+            {
+                try
+                {
+                    sw.Write(info.stacklist[i].dimx.ToString().Replace(',', '.') + "\r\n");
+                }
+                catch
+                {
+                    sw.Write("0\r\n");
+                }
+            }
+            sw.Write("\r\n");
+
+            for (int i = 0; i < 60; i++)
+            {
+                try
+                {
+                    sw.Write(info.stacklist[i].dimy.ToString().Replace(',', '.') + "\r\n");
+                }
+                catch
+                {
+                    sw.Write("0\r\n");
+                }
+            }
+            sw.Write("\r\n");
+
+            for (int i = 0; i < 60; i++)
+            {
+                try
+                {
+                    sw.Write(info.stacklist[i].maxerror.ToString().Replace(',','.') + "\r\n");
+                }
+                catch
+                {
+                    sw.Write("0.1\r\n");
+                }
+            }
+            sw.Write("\r\n");
+
+            for (int i = 0; i < 60; i++)
+            {
+                try
+                {
+                    sw.Write(info.stacklist[i].rot.ToString().Replace(',', '.') + "\r\n");
+                }
+                catch
+                {
+                    sw.Write("0\r\n");
+                }
+            }
+            sw.Write("\r\n");
+
+            for (int i = 0; i < 60; i++)
+            {
+                try
+                {
+                    sw.Write(info.stacklist[i].treshhold.ToString().Replace(',', '.') + "\r\n");
+                }
+                catch
+                {
+                    sw.Write("-1\r\n");
+                }
+            }
+            sw.Write("\r\n");
+
         }
 
 
@@ -476,6 +563,42 @@ namespace eagle2tvm
                     else
                     {
                         info.exposure_bottom = info.MyToInt32(sa[idx + 106]);
+                    }
+                    break;
+                }
+                idx++;
+            }
+            idx = 0;
+            info.stacklist.Clear();
+            sa = s.Split(new String[] { "\r\n" }, StringSplitOptions.None);
+            foreach (String sx in sa)
+            {
+                if (sx.Contains("Stack"))
+                {
+                    for (int stack_lane = 0; stack_lane < 60; stack_lane++)
+                    {
+                        stackitem lane = new stackitem();
+
+                        if (stack_lane<30)
+                        {
+                            lane.stackname = "L" + (stack_lane+1).ToString();
+                        }
+                        else
+                        {
+                            lane.stackname = "B" + (stack_lane-29).ToString();
+                        }
+                        lane.name = sa[idx + 1 + stack_lane];
+                        lane.dimx = info.MyToDouble(sa[idx + 2 + 60 + stack_lane]);
+                        lane.dimy = info.MyToDouble(sa[idx + 3 + 120 + stack_lane]);
+                        lane.maxerror = info.MyToDouble(sa[idx + 4 + 180 + stack_lane]);
+                        lane.rot = info.MyToInt32(sa[idx + 5 + 240 + stack_lane]);
+                        lane.treshhold = info.MyToInt32(sa[idx + 6 + 300 + stack_lane]);
+                        lane.vision = "None";
+                        lane.nozzle = "1/2";
+                        lane.pressure = true;
+                        lane.speed = 100;
+                        info.stacklist.Add(lane);
+
                     }
                     break;
                 }

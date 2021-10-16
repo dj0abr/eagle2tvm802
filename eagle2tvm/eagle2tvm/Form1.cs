@@ -11,6 +11,7 @@ namespace eagle2tvm
     public partial class Form1 : Form
     {
         eagle egl;
+        universal_importer altium;
         stack stk;
         tvm tvm802;
 
@@ -32,6 +33,7 @@ namespace eagle2tvm
             info.cwd = Directory.GetCurrentDirectory();
 
             egl = new eagle();
+            altium = new universal_importer();
             stk = new stack();
             tvm802 = new tvm();
             info.Load();
@@ -525,6 +527,12 @@ namespace eagle2tvm
             setGUI();
         }
 
+        private void button_pl_Click(object sender, EventArgs e)
+        {
+            info.lang = 2;
+            setGUI();
+        }
+
         DataGridViewComboBoxColumn makeFilledStringDataSource(String [] sa, int anz, String name, String type)
         {
             DataTable dt = new DataTable();
@@ -658,12 +666,14 @@ namespace eagle2tvm
 
             if (info.lang == 0)
             {
+                button1.Text = "unused Stacks";
                 tabPage_loadfiles.Text = "Load/Save PnP Files";
                 groupBox2.Text = "Load previously generated TVM802 files";
                 button_loadTVMfiles.Text = "Load TVM802 Files";
                 groupBox1.Text = "Load original EAGLE files";
                 label3.Text = "set assignments to Nozzle, Stack, Fiducials etc.\r\nto default values. Load a TVM802 file\r\nfirst to get actual fiducial coordinates.";
                 button_loadeaglefiles.Text = "Load Eagle Files";
+                button_loadaltiumfiles.Text = "Load Altium/OrCad/KiCad Files";
                 tabPage2.Text = "TOP devices";
                 label7.Text = label8.Text = label9.Text = "Click on the header to sort a column !";
                 button_printstacklist.Text = button_bdruck.Text = button_tdruck.Text = "Print";
@@ -724,14 +734,87 @@ are kept as they are.
 ";
 
             }
+            else if (info.lang==2) {
+                button1.Text = "Nieużywane podajniki";
+                tabPage_loadfiles.Text = "Odczyt/Zapis plików PnP";
+                groupBox2.Text = "Wczytaj poprzednio wygenerowane pliki TVM802";
+                button_loadTVMfiles.Text = "Wczytaj pliki TVM802";
+                groupBox1.Text = "Wczytaj źródłowe pliki EAGLE";
+                label3.Text = "Zresetuj przydział dla głowic, podajników,\r\n markerów itp do wartości domyślnych.\r\n Wczytaj najpierw plik TVM802\r\n aby ustalić fizyczne współrzędne markerów.";
+                button_loadeaglefiles.Text = "Wczytaj pliki Eagle";
+                button_loadaltiumfiles.Text = "Wczytaj pliki Altium/OrCad/KiCad";
+                tabPage2.Text = "Elementy strony TOP";
+                label7.Text = label8.Text = label9.Text = "Kliknij na nagłówku kolumny aby posortować !";
+                button_printstacklist.Text = button_bdruck.Text = button_tdruck.Text = "Drukuj";
+                button_printusedstacks.Text = "Drukuj używane podajniki";
+                tabPage3.Text = "Elementy strony BOTTOM";
+                button_loadstacklist.Text = "Wczytaj";
+                button_savestack.Text = "Zapis";
+                button_makeTVMfiles.Text = "Wygeneruj pliki TVM802";
+                button3.Text = "Wygeneruj pliki TVM802\r\nTYLKO dla elementów\r\nobsadzonych na podajnikach/tackach";
+                label2.Text = "Nazwa pliku jest automatycznie uzupełniona przez:\r\nTOP-Layer:  _tvm802_top.csv\r\nBOTTOM-Layer: _tvm802_bottom.csv\r\n";
+                groupBox3.Text = "zapisz pliki TVM802";
+                label_usagetop.Text = "Instrukcja:";
+                label10.Text = "Zdefiniuj na PCB dwa elementy SMD o nazwach FID1, FID2 (dla strony TOP)\r\n oraz FID3, FID4 (dla strony BOTTOM)\r\n posłużą one jako markery";
+                label4.Text =
+@"
+Listy podajników/tacek są zapisane osobno i mogą być użyte ponownie we wszystkich projektach.
+
+Orientacja elementów na podajnikach:
+----------------------------------------------
+Taśmy z rezystorami i kondensatorami jest dostosowana do formatu TVM802 automatycznie
+Taśmy zawierająca elementy w SOT-23 i podobnych: wprowadź orientacje -90 stopni dla danej pozycji listy
+Taśmy z diodami są dostosowywane do formatu TVM802 automatycznie
+
+Orientacja elementów na definiowanych tackach:
+----------------------------------------------
+Elementy z dwoma rzędami wyprowadzeń (SO-8 itp): pin #1 powinien być w lewym dolnym rogu układu
+Elementy z czterema rzędami wyprowadzeń (QFN, TQFP): pin #1 powinien być w lewym górnym rogu układu
+Ogólnie Elementy powinny umieszczone być tak, aby ich oznaczenia były czytelne dla operatora
+
+Przy zachowaniu tych zasad wszystkie korekcje orientacji będą przeliczone automatycznie zarówno dla strony TOP jak i BOTTOM
+
+Strona BOTTOM: koordynaty elementów są przeliczone automatycznie. Skrajnie lewy element jest używany jako punkt referencyjny 
+dla operacji korekcji i otrzymuje współrzędna X=0 po korekcji. Okno statusu pokazuje, który element został wybrany jako referencja 
+dla tej operacji. Podczas ustawiania markerów przesunięcie to musi zostać dodane do ich pozycji.
+Wszystkie pozostałe współrzędne i obroty są przeliczane automatycznie dla obu stron PCB.
+";
+                label_usage.Text =
+@"
+1. wprowadź wymagane dane do list podajników/tacek zgodnie z tym, co masz 
+   założone na TVM802 (automat użyje pól ""nazwa"" oraz ""obudowa"")
+
+2. w programie Eagle: uruchom skrypt ULP ""mountsmd"" - to wygeneruje potrzebne pliki
+   mnt (TOP) oraz mnb (BOTTOM).
+
+3. Kliknij ""Wczytaj pliki Eagle"" i wybierz jeden z dwóch plików
+   (oba pliki zostaną wczytane w jednej operacji)
+
+4. przejdź do okna list elementów dla strony TOP oraz BOTTOM i wprowadź 
+   swoje ustawienia, lub skożystaj z przycisku AUTO
+   (przycisk będzie działał, jeśli pola ""nazwa"" oraz ""obudowa"" 
+    będą zawierały te same informacje co te we wczytanych plikach)
+
+5. ""wygeneruj pliki TVM802""
+
+Pozostało wczytać uzyskany plik do oprogramowania TVM802 i ustawić 
+ fizyczne (we współrzednych maszyny) lokacje markerów.
+
+Przy ponownym wczytaniu pliku zmodyfikowanego przez oprogramowanie TVM802 
+ pola te pozostaną nietknięte.
+";
+
+            }
             else
             {
+                button1.Text = "unbenuten Stacks";
                 tabPage_loadfiles.Text = "Laden/Speichern PnP Dateien";
                 groupBox2.Text = "Lade zuvor erstellte TVM802 Dateien";
                 button_loadTVMfiles.Text = "Lade TVM802 Dateien";
                 groupBox1.Text = "Lade EAGLE Originaldateien";
                 label3.Text = "Zuordnungen zu Nozzle, Stack, Fiducials usw. \r\nwerden auf Defaultwerte gesetzt. Evt. zuvor \r\neine TVM802 Datei laden um die Fiducial Werte \r\nzu übernehmen.";
                 button_loadeaglefiles.Text = "Lade Eagle Dateien";
+                button_loadaltiumfiles.Text = "Lade Altium/OrCad/KiCad Dateien";
                 tabPage2.Text = "TOP Bauteile";
                 label7.Text = label8.Text = label9.Text = "zum Sortieren den Spaltenkopf anklicken !";
                 button_printstacklist.Text = button_bdruck.Text = button_tdruck.Text = "Drucken";
@@ -872,6 +955,77 @@ are kept as they are.
             {
                 MessageBox.Show(s);
             }
+        }
+
+        private void button_loadaltiumfiles_Click(object sender, EventArgs e)
+        {
+            button_ConverUnits.Enabled = true;
+            button_ConvertUnitsT.Enabled = true;
+            openUniversalFiles.InitialDirectory = info.LastDir;
+            openUniversalFiles.FileName = info.LastFile;
+            DialogResult dr = openUniversalFiles.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                info.LastFile = Path.GetFileName(openUniversalFiles.FileName);
+                info.LastDir = Path.GetDirectoryName(openUniversalFiles.FileName);
+                int ret = altium.Load();
+                if (altium.units == 1)
+                {
+                    MessageBox.Show("TVM802 Software understands only METRIC units\n\r Imperial units were detected!\n\r Please convert them before saving output file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    button_ConverUnits.Enabled = true;
+                    button_ConvertUnitsT.Enabled = true;
+                }
+                else
+                {
+                    button_ConverUnits.Enabled = false;
+                    button_ConvertUnitsT.Enabled = false;
+                }
+
+                if (ret == 1)
+                    MessageBox.Show(language.str(0) + info.error, language.str(1), MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                if (ret == 2)
+                    MessageBox.Show(language.str(0) + info.error, language.str(2), MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                egl.bdevlist.Clear();
+                egl.tdevlist.Clear();
+                foreach (device dev in altium.bdevlist)
+                {
+                    egl.bdevlist.Add(dev);
+                }
+                foreach (device dev in altium.tdevlist)
+                {
+                    egl.tdevlist.Add(dev);
+                }
+
+            }
+
+        }
+
+        private void button_ConverUnits_Click(object sender, EventArgs e)
+        {
+            foreach(device dev in egl.bdevlist)
+            {
+                dev.x = Math.Round(dev.x * 0.0254,3);
+                dev.y = Math.Round(dev.y * 0.0254,3);
+            }
+            foreach (device dev in egl.tdevlist)
+            {
+                dev.x = Math.Round(dev.x * 0.0254,3);
+                dev.y = Math.Round(dev.y * 0.0254,3);
+            }
+            button_ConverUnits.Enabled = false;
+            button_ConvertUnitsT.Enabled = false;
+            bdataGridView_devices.Refresh();
+
+        }
+
+        private void tabPage6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
